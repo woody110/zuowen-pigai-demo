@@ -92,6 +92,8 @@
   .card h4{margin:0 0 12px;font-size:14px;color:#3b4757}
   .photo{background:#eef1f4;border-radius:8px;padding:12px}
   .photo svg,.photo img{display:block;width:100%;border-radius:6px}
+  .pageno{display:inline-block;background:rgba(31,39,51,.72);color:#fff;
+    font-size:11px;border-radius:5px;padding:2px 9px;margin-bottom:8px}
   .recog{font-size:13.5px;line-height:2;margin:16px 0 0}
   .recog .who{font-weight:700;margin-top:12px}
   .recog .lab{color:var(--ink2);font-size:12px;margin-top:14px}
@@ -321,7 +323,7 @@ const S={
     midRecog:`<div class="lab">看图写话</div><div>看图写话。（一）右图画的是什么地方？图上都有谁？想一想：它们遇到了什么问题？它们是怎么做的呢？写一写。用一用：过河 办法 搭桥 开心</div>
       <div class="who">王子涵</div><div>有一天，小白兔和小公鸡开开心心来到河边。可是它们被挡住了去路，小河很深，它们又不会游泳。小白兔和小公鸡非常着急。这个时候，小白兔看见不远处长颈鹿哥哥在吃草。小白兔灵机一动，小白兔对小公鸡说：“我们可以找长颈鹿哥哥帮忙。”它们连忙跑过去请求帮助。小公鸡说：“长颈鹿哥哥你可以帮我们搭一座桥吗？”长颈鹿很快地答应了。长颈鹿哥哥脖子一伸，搭了一座桥，小白兔和小公鸡顺利的来到了河对岸。它们对长颈鹿哥哥说：“谢谢。”</div>`,
     fields:[
-      {label:"图意描述",hint:"图上看到的内容、可合理推测的心情意图、图上没有的留白信息，如确无对应信息可留空",req:false,
+      {label:"图意描述",hint:"图上看到的内容、可合理推测的心情意图、图上没有的留白信息",req:true,
        val:"图上是小河边。图上有小白兔、小公鸡和长颈鹿。长颈鹿站在河边，把长长的脖子伸到河对岸，像一座桥；小白兔和小公鸡正准备从它的脖子上走过去。从小动物们着急的样子看，它们遇到了过不了河的困难，想办法请长颈鹿帮忙。"},
       {label:"题目文字要求",req:true,
        val:"看图写话。（一）右图画的是什么地方？图上都有谁？想一想：它们遇到了什么问题？它们是怎么做的呢？写一写。用一用：过河 办法 搭桥 开心"},
@@ -476,14 +478,12 @@ function renderConfirm(s){
   document.getElementById("cfMid").innerHTML=`
     <div class="mid-head">
       <h2>${curKey()==="picture"?"图意与作文识别结果":"作文识别结果"}</h2>
-      ${curKey()==="picture"?'<span class="tag new">本次新增</span>':""}
-      <span class="tag warn">⚠ 部分内容需核对</span>
-      <p>请对照左侧原图核对下方识别内容是否一致；<b>如有识别缺漏或错误，可直接编辑修正。</b>${curKey()==="picture"?"「图意描述」如确无对应信息，留空即为合理结果；":""}<b>必填项</b>修正后点击【开始批改】以保证批改依据准确。</p>
+      <p>请对照左侧原图核对下方识别内容是否一致；<b>如有识别缺漏或错误，可直接编辑修正。</b>必填项修正后点击【开始批改】以保证批改依据准确。</p>
     </div>
+    <span class="pageno">第 1 张</span>
     <div class="card">
       <h4>学生作文照片</h4>
       <div class="photo">${s.photo}</div>
-      <div class="recog">${s.midRecog}</div>
     </div>`;
   document.getElementById("cfForm").innerHTML=
     s.fields.map(f=>`<div class="field">
