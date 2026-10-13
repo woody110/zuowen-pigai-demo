@@ -185,6 +185,41 @@
   .tool{flex:0 0 auto;width:64px;display:flex;flex-direction:column;align-items:center;gap:2px;
     color:#dfe5ec;font-size:11px;padding:6px 0;background:none;border:0}
   .tool svg{width:18px;height:18px}
+  .modal-mask{position:fixed;inset:0;background:rgba(31,39,51,.45);display:none;align-items:center;justify-content:center;z-index:100}
+  .modal-mask.on{display:flex}
+  .modal{width:420px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .modal-head{padding:16px 20px;font-size:16px;font-weight:700;border-bottom:1px solid var(--line)}
+  .modal-body{padding:20px}
+  .modal-body .row{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:14px}
+  .modal-body .lbl{color:var(--ink2);width:70px;flex:0 0 auto}
+  .modal-body .fmt{display:flex;gap:16px}
+  .modal-body .fmt label{display:flex;align-items:center;gap:5px;cursor:pointer;color:var(--ink)}
+  .modal-body .tip{color:var(--ink2);font-size:12px;margin:0}
+  .modal-body .warn{color:var(--brand);font-weight:700;margin:0 0 8px}
+  .modal-body .msg-row{align-items:flex-start}
+  .modal-body .msg-row .lbl{padding-top:6px}
+  .modal-body textarea{flex:1;border:1px solid #dfe3e8;border-radius:8px;padding:10px;font-size:13px;line-height:1.7;color:#2b3646;resize:vertical;font-family:inherit;min-height:92px}
+  .modal-body textarea:focus{outline:none;border-color:var(--brand)}
+  .modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;align-items:center}
+  .demo-switch{margin-left:auto;font-size:12px;color:#9aa5b1}
+  .demo-switch a{color:var(--brand);cursor:pointer;margin:0 3px}
+  .demo-switch a.on{font-weight:700;text-decoration:underline}
+  .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:rgba(31,39,51,.9);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;z-index:110;display:none}
+  .preview-body{flex:1;overflow:auto;padding:28px 40px}
+  .preview-paper{max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:34px 38px;box-shadow:0 2px 12px rgba(31,39,51,.06);font-size:14px;line-height:1.9;color:#2b3646}
+  .preview-paper h3{font-size:16px;margin:0 0 12px;display:flex;gap:8px;align-items:center;color:#1f2733}
+  .preview-paper h3::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--brand)}
+  .preview-paper p{margin:0 0 12px}
+  .preview-paper .dim{margin:0 0 12px}
+  .preview-paper .dim b{color:#1f2733}
+  .preview-paper .sub{font-weight:700;color:var(--ink);display:block;margin:14px 0 4px}
+  .preview-paper .q{color:var(--red)}
+  .preview-paper .g{color:var(--green)}
+  .preview-paper .sig{display:flex;gap:8px;margin:0 0 8px;align-items:flex-start}
+  .preview-paper .lv{flex:0 0 auto;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700}
+  .preview-paper .lv.strong{background:#e7f6ec;color:#2f8f57}
+  .preview-paper .lv.ok{background:#eef2f7;color:#5c6b7a}
+  .preview-paper .tipbox{background:#f6f8fb;border-radius:10px;padding:14px 16px;margin-top:8px}
 </style>
 </head>
 <body>
@@ -270,10 +305,11 @@
     <span class="gap"></span>
     <button class="btn">保存修改</button>
     <button class="btn primary">完成批改</button>
-    <button class="btn ghost">👁 预览</button>
+    <button class="btn ghost" id="previewBtn">👁 预览</button>
     <button class="btn ghost">⬇ 导出为 pdf</button>
     <button class="btn ghost">⬇ 导出为 word</button>
     <button class="btn ghost">⬇ 导出为图片</button>
+    <button class="btn ghost" id="wecomExport">💬 导出到企微</button>
     <div class="avatar">明</div>
   </header>
   <main>
@@ -301,6 +337,24 @@
     <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v11M8 11l4 4 4-4M5 19h14"/></svg>本页下载</button>
     <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>下一张</button>
   </footer>
+</section>
+
+<!-- ⑥ 预览 -->
+<section class="view v-preview">
+  <header class="top">
+    <div class="brand"><span class="brand-logo">✎</span>作文批改助手</div>
+    <button class="back" data-go="result">← 返回</button>
+    <span class="gap"></span>
+    <span class="docTitle" id="prevTitle"></span>
+    <span class="gap"></span>
+    <button class="btn ghost">⬇ 导出为 pdf</button>
+    <button class="btn ghost">⬇ 导出为 word</button>
+    <button class="btn ghost">⬇ 导出为图片</button>
+    <button class="btn ghost" id="wecomExport2">💬 导出到企微</button>
+  </header>
+  <main>
+    <div class="preview-body" id="previewBody"></div>
+  </main>
 </section>
 
 <script>
@@ -443,7 +497,7 @@ function curKey(){return gradeSel.value==="二年级上"?"picture":"normal";}
 /* ---------- 视图切换 ---------- */
 const views={upload:document.querySelector(".v-upload"),recog:document.querySelector(".v-recog"),
   confirm:document.querySelector(".v-confirm"),correct:document.querySelector(".v-correct"),
-  result:document.querySelector(".v-result")};
+  result:document.querySelector(".v-result"),preview:document.querySelector(".v-preview")};
 function show(v){for(const k in views)views[k].classList.toggle("on",k===v);window.scrollTo(0,0);}
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)));
 
@@ -521,6 +575,49 @@ function renderResult(s){
     t.classList.add("active"); body.innerHTML=s.data[t.dataset.k];
   }));
 }
+
+/* ---------- 导出到企微（demo） ---------- */
+let demoScene="normal";
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",2000);}
+function openWecom(){
+  const s=S[curKey()];
+  const parent=s.student==="王子涵"?{name:"王妈妈",account:"微信 · 王妈妈"}:{name:"林爸爸",account:"微信 · 林爸爸"};
+  const body=document.getElementById("wecomBody"),foot=document.getElementById("wecomFoot"),mask=document.getElementById("wecomModal");
+  if(demoScene==="noContact"){
+    body.innerHTML=`<p class="warn">无法找到联系人</p><p style="margin:0;color:#5c6b7a">未查到该学生对应的家长企微账号，无法发送。</p>`;
+    foot.innerHTML=`<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxLocal">导出到本地</button>`;
+  }else{
+    body.innerHTML=`
+      <div class="row"><span class="lbl">发送对象</span><span>${parent.name}（${parent.account}）</span></div>
+      <div class="row"><span class="lbl">格式</span><span class="fmt"><label><input type="radio" name="fmt" value="pdf" checked> PDF</label><label><input type="radio" name="fmt" value="word"> Word</label></span></div>
+      <div class="row msg-row"><span class="lbl">发送话术</span><textarea id="wecomMsg">${s.student}家长您好，这是孩子本次作文的批改结果，请查收。孩子在这篇里已经有了一些不错的表达，也还有一些可以继续提升的地方，您可以和孩子一起看一看，有任何问题随时和我沟通。</textarea></div>
+      <p class="tip">将发送批改结果（PDF / Word）+ 话术给家长</p>`;
+    foot.innerHTML=`<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxSend">发送</button>`;
+  }
+  foot.insertAdjacentHTML('beforeend',`<span class="demo-switch">演示：<a data-scene="normal">正常</a><a data-scene="noContact">找不到联系人</a><a data-scene="fail">发送失败</a></span>`);
+  [...foot.querySelectorAll('.demo-switch a')].forEach(a=>a.classList.toggle('on',a.dataset.scene===demoScene));
+  mask.classList.add("on");
+  document.getElementById("wxCancel")?.addEventListener("click",()=>mask.classList.remove("on"));
+  document.getElementById("wxLocal")?.addEventListener("click",()=>{mask.classList.remove("on");showToast("已导出到本地");});
+  document.getElementById("wxSend")?.addEventListener("click",()=>{mask.classList.remove("on");showToast(demoScene==="fail"?"发送失败":"发送成功");});
+  [...foot.querySelectorAll('.demo-switch a')].forEach(a=>a.addEventListener("click",()=>{demoScene=a.dataset.scene;openWecom();}));
+}
+document.getElementById("wecomExport").addEventListener("click",openWecom);
+function renderPreview(){
+  const s=S[curKey()];
+  document.getElementById("prevTitle").textContent=s.title;
+  document.getElementById("previewBody").innerHTML=`<div class="preview-paper">${s.tabs.map(([k])=>s.data[k]).join("")}</div>`;
+}
+document.getElementById("previewBtn").addEventListener("click",()=>{renderPreview();show("preview");});
+document.getElementById("wecomExport2").addEventListener("click",openWecom);
 </script>
+<div class="modal-mask" id="wecomModal">
+  <div class="modal">
+    <div class="modal-head">导出到企微</div>
+    <div class="modal-body" id="wecomBody"></div>
+    <div class="modal-foot" id="wecomFoot"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
 </body>
 </html>
