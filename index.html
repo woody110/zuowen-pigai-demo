@@ -279,7 +279,7 @@
         <div><label class="lbl">单元</label>
           <select class="sel" id="unit"></select></div>
       </div>
-      <div class="tabs"><span class="tab active">↑ 上传文件</span><span class="tab">🖼 粘贴文本</span></div>
+      <div class="tabs"><span class="tab active" id="uploadTab">↑ 看图写话</span><span class="tab" id="pasteTab">🖼 粘贴文本</span></div>
 
       <label class="dropzone" id="dropArea">
         <div class="dz-icon">↑</div>
@@ -431,6 +431,8 @@ const S={
        val:"图上是小河边。图上有小白兔、小公鸡和长颈鹿。长颈鹿站在河边，把长长的脖子伸到河对岸，像一座桥；小白兔和小公鸡正准备从它的脖子上走过去。从小动物们着急的样子看，它们遇到了过不了河的困难，想办法请长颈鹿帮忙。"},
       {label:"题目文字要求",req:true,
        val:"看图写话。（一）右图画的是什么地方？图上都有谁？想一想：它们遇到了什么问题？它们是怎么做的呢？写一写。用一用：过河 办法 搭桥 开心"},
+      {label:"作文标题",req:true,
+       val:"看图写话"},
       {label:"学生作文内容",req:true,
        val:"有一天，小白兔和小公鸡开开心心来到河边。可是它们被挡住了去路，小河很深，它们又不会游泳。小白兔和小公鸡非常着急。这个时候，小白兔看见不远处长颈鹿哥哥在吃草。小白兔灵机一动，小白兔对小公鸡说：“我们可以找长颈鹿哥哥帮忙。”它们连忙跑过去请求帮助。小公鸡说：“长颈鹿哥哥你可以帮我们搭一座桥吗？”长颈鹿很快地答应了。长颈鹿哥哥脖子一伸，搭了一座桥，小白兔和小公鸡顺利的来到了河对岸。它们对长颈鹿哥哥说：“谢谢。”\n这个故事告诉我们：遇到事情要想办法解决，请求别人帮忙。"}
     ],
@@ -445,7 +447,7 @@ const S={
         <div class="text">这个故事告诉我们：遇到事情要想办法解决，请求别人帮忙。</div>
         <div class="note">第二段写出了一个道理——「遇到事情要想办法解决，请求别人帮忙」，二年级能主动点明道理很难得。如果想要更自然，可以让道理从故事里自己「长」出来，比如先说「要不是小白兔动了脑筋，它们就过不了河」。</div>
       </div>`,
-    tabs:[["review","总评"],["detail","详细点评"],["polish","全文润色"],["ability","能力建议"]],
+    tabs:[["review","总评"],["detail","详细点评"],["polish","全文润色"],["ability","反馈建议"]],
     data:{
       review:`<h3>全文总评</h3>
         <p>孩子这篇《看图写话·过河》完成度很高，把题目的三个问题都答全了，故事讲得完整又清楚，结尾还写出了一个明白的道理，是一篇很不错的写话。</p>
@@ -465,7 +467,7 @@ const S={
         <p>这时，小白兔看见不远处的草地上，长颈鹿哥哥正在吃草。它灵机一动，对小公鸡说：「我们一起想个办法，请长颈鹿哥哥帮忙吧！」它们连忙跑过去。小公鸡仰起头说：「长颈鹿哥哥，你能帮我们搭一座桥吗？」长颈鹿笑着答应了。</p>
         <p>只见它把长长的脖子一伸，稳稳地搭在河对岸——一座「长脖子桥」就搭好啦！小白兔和小公鸡一前一后，小心地走了过去，终于顺顺利利地到了河对岸。它们回头大声说：「谢谢你，长颈鹿哥哥！」</p>
         <p>这个故事告诉我们：遇到困难，要想办法解决，也可以请别人帮忙。</p>`,
-      ability:`<h3>能力建议</h3>
+      ability:`<h3>反馈建议</h3>
         <div class="sig"><span class="lv strong">强</span><span><b>情感感知</b>：写出了「开开心心」「非常着急」，心情写得到位。</span></div>
         <div class="sig"><span class="lv strong">强</span><span><b>结构组织</b>：事情有起因、经过、结果，还主动写出道理。</span></div>
         <div class="sig"><span class="lv strong">强</span><span><b>因果推断 / 想象延伸</b>：「灵机一动」「请长颈鹿搭桥」合理又贴图。</span></div>
@@ -524,6 +526,8 @@ const S={
     ],
     midRecog:`<div class="who">林小宇</div><div>我的心爱之物\n你的心爱之物是什么？乐高？玩具熊？我的心爱之物是家乡养的小黄狗黄豆。\n黄豆有一双炯炯有神的金色眼睛，而且自带眼线……</div>`,
     fields:[
+      {label:"作文标题",req:true,
+       val:"我的心爱之物"},
       {label:"学生作文内容",req:true,
        val:"我的心爱之物\n你的心爱之物是什么？乐高？玩具熊？我的心爱之物是家乡养的小黄狗黄豆。\n黄豆有一双炯炯有神的金色眼睛，而且自带眼线，脸上那块黄色斑点与它身上黑色的毛发格格不入，却彰显着它的独特。\n黄豆十分淘气。\n上次，黄豆在奶奶家看见了邻居家最板上的老鼠，想都不想便扑了上去，结果自己反被扒了一身虱子。我和姐姐为它洗澡，它竟然抓了我一把。\n还有一次，黄豆消失了一整天，大家找遍了整个大院，最终在小狗海海的狗窝里找到了它。它应该是被压住了，大家说干就干，拆了大半个狗窝才看见它——它的后腿上纏了根麻绳，死死地缠住它，动弹不得。最后，黄豆变成了一只瘦猫。\n家雀儿是我们院子的老住户了，一家六口其乐融融地在院西电箱上，在黄豆的出现，打破了它们的快乐生活。\n最开始，黄豆只是眼巴巴地望着雀窝，后来它叫来了附近村子的流浪猫，一起捣鸟巢，可真是一副「大将军」的架子呢！\n就这样，黄豆把老大的院子搞得枝折花落。可惜黄豆在 17 天前走了，院中少了一位「瘸腿将军」，显得空荡荡的。黄豆，我希望某一天你能回到这片土地，让我们的院子重新充满阳光！"}
     ],
@@ -614,11 +618,12 @@ const S={
 };
 
 /* ---------- 年级 / 单元联动 ---------- */
-const UNITS={"二年级上":["看图写话"],"五年级上":["第一单元 · 我的心爱之物"]};
+const UNITS={"二年级上":["语文园地三 · 我最喜爱的玩具"],"五年级上":["第一单元 · 我的心爱之物"]};
 const gradeSel=document.getElementById("grade"), unitSel=document.getElementById("unit");
 function fillUnits(){const g=gradeSel.value;unitSel.innerHTML=UNITS[g].map(u=>`<option>${u}</option>`).join("");}
-gradeSel.addEventListener("change",fillUnits); fillUnits();
 function curKey(){return gradeSel.value==="二年级上"?"picture":"normal";}
+function updateUploadTab(){const el=document.getElementById("uploadTab"),pt=document.getElementById("pasteTab"),isPic=curKey()==="picture";if(el)el.textContent=isPic?"↑ 看图写话":"↑ 上传文件";if(pt)pt.style.display=isPic?"none":"";}
+gradeSel.addEventListener("change",()=>{fillUnits();updateUploadTab();}); fillUnits(); updateUploadTab();
 
 /* ---------- 视图切换 ---------- */
 const views={upload:document.querySelector(".v-upload"),recog:document.querySelector(".v-recog"),
