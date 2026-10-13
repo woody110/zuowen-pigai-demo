@@ -220,6 +220,42 @@
   .preview-paper .lv.strong{background:#e7f6ec;color:#2f8f57}
   .preview-paper .lv.ok{background:#eef2f7;color:#5c6b7a}
   .preview-paper .tipbox{background:#f6f8fb;border-radius:10px;padding:14px 16px;margin-top:8px}
+  .report{max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:34px 38px;box-shadow:0 2px 12px rgba(31,39,51,.06);font-size:14px;line-height:1.9;color:#2b3646}
+  .report-title{text-align:center;font-size:22px;font-weight:700;color:var(--brand);letter-spacing:2px}
+  .report .meta{text-align:center;color:var(--ink2);font-size:12.5px;margin:4px 0}
+  .report .meta.title{color:var(--ink);font-weight:600}
+  .report h2{font-size:15px;color:var(--brand);font-weight:700;border-bottom:2px solid var(--brand);padding-bottom:4px;margin:20px 0 10px}
+  .report h3{font-size:15px;margin:16px 0 8px;color:var(--ink)}
+  .report table.score{width:100%;border-collapse:collapse}
+  .report table.score th,.report table.score td{border:1px solid #e3e6ea;padding:6px 10px;text-align:left;font-size:12.5px}
+  .report table.score th{background:#f6f8fb;font-weight:600}
+  .report table.score td.lv{color:var(--brand);font-weight:700;white-space:nowrap}
+  .report table.score td.lv.good{color:var(--green)}
+  .report .sugg{margin:5px 0}
+  .report .card{margin:6px 0}
+  .report .card .no{font-weight:700;margin-right:4px}
+  .report .card .tag{font-weight:700;margin-right:6px}
+  .report .card.jia .no,.report .card.jia .tag{color:var(--red)}
+  .report .card.run .no,.report .card.run .tag{color:var(--blue)}
+  .report .card .quote{font-weight:600}
+  .report .card .note{color:var(--ink2)}
+  .report .upgrade{margin:7px 0}
+  .report .upgrade .tag{color:var(--brand);font-weight:700}
+  .report .example{color:var(--green);margin:3px 0 3px 1.5em;font-size:13px}
+  .report .indent{text-indent:2em}
+  .report .sub{font-weight:700;margin:10px 0 4px}
+  .export-wrap{position:relative}
+  .export-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.12);display:none;min-width:132px;z-index:60;overflow:hidden}
+  .export-menu.on{display:block}
+  .export-menu a{display:block;padding:9px 14px;font-size:13px;color:var(--ink);cursor:pointer;white-space:nowrap}
+  .export-menu a:hover{background:#f6f8fb}
+  .sheet-img{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+  .sheet-img .img-col img{display:block;width:100%;border-radius:6px}
+  .notes-col{font-size:13px;line-height:1.85;color:#2b3646}
+  .note-item{font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px;margin-bottom:14px}
+  .note-item .q{color:var(--red)}
+  .note-item .b{color:var(--blue)}
+  .note-item .g{color:var(--green)}
 </style>
 </head>
 <body>
@@ -306,10 +342,15 @@
     <button class="btn">保存修改</button>
     <button class="btn primary">完成批改</button>
     <button class="btn ghost" id="previewBtn">👁 预览</button>
-    <button class="btn ghost">⬇ 导出为 pdf</button>
-    <button class="btn ghost">⬇ 导出为 word</button>
-    <button class="btn ghost">⬇ 导出为图片</button>
-    <button class="btn ghost" id="wecomExport">💬 导出到企微</button>
+    <div class="export-wrap">
+      <button class="btn ghost" id="exportBtn1">⬇ 导出</button>
+      <div class="export-menu" id="exportMenu1">
+        <a data-fmt="pdf">导出为 PDF</a>
+        <a data-fmt="word">导出为 Word</a>
+        <a data-fmt="img">导出为图片</a>
+      </div>
+    </div>
+    <button class="btn ghost" id="wecomExport">💬 发送微信</button>
     <div class="avatar">明</div>
   </header>
   <main>
@@ -347,10 +388,15 @@
     <span class="gap"></span>
     <span class="docTitle" id="prevTitle"></span>
     <span class="gap"></span>
-    <button class="btn ghost">⬇ 导出为 pdf</button>
-    <button class="btn ghost">⬇ 导出为 word</button>
-    <button class="btn ghost">⬇ 导出为图片</button>
-    <button class="btn ghost" id="wecomExport2">💬 导出到企微</button>
+    <div class="export-wrap">
+      <button class="btn ghost" id="exportBtn2">⬇ 导出</button>
+      <div class="export-menu" id="exportMenu2">
+        <a data-fmt="pdf">导出为 PDF</a>
+        <a data-fmt="word">导出为 Word</a>
+        <a data-fmt="img">导出为图片</a>
+      </div>
+    </div>
+    <button class="btn ghost" id="wecomExport2">💬 发送微信</button>
   </header>
   <main>
     <div class="preview-body" id="previewBody"></div>
@@ -374,6 +420,10 @@ const S={
     recogTitle:"AI 正在识别图意与作文中，请稍候...",
     recogSub:"正在识别题目图片、题目要求与学生作文内容",
     photo:PIC_PHOTO,
+    comments:[
+      `第一段是全文，写了小白兔和小公鸡来到河边、被河挡住、想办法请长颈鹿搭桥、顺利过河，把事情从头到尾讲清楚了，还写出了<span class="q">「非常着急」「灵机一动」「脖子一伸，搭了一座桥」</span>这些好句。如果想要更准，可以把<span class="b">「顺利的」</span>改成<span class="g">「顺利地」</span>，把第二个<span class="b">「小白兔」</span>换成<span class="g">「它」</span>。`,
+      `第二段写出了一个道理——<span class="q">「遇到事情要想办法解决，请求别人帮忙」</span>，二年级能主动点明道理很难得。如果想要更自然，可以让道理从故事里自己「长」出来，比如先说「要不是小白兔动了脑筋，它们就过不了河」。`
+    ],
     midRecog:`<div class="lab">看图写话</div><div>看图写话。（一）右图画的是什么地方？图上都有谁？想一想：它们遇到了什么问题？它们是怎么做的呢？写一写。用一用：过河 办法 搭桥 开心</div>
       <div class="who">王子涵</div><div>有一天，小白兔和小公鸡开开心心来到河边。可是它们被挡住了去路，小河很深，它们又不会游泳。小白兔和小公鸡非常着急。这个时候，小白兔看见不远处长颈鹿哥哥在吃草。小白兔灵机一动，小白兔对小公鸡说：“我们可以找长颈鹿哥哥帮忙。”它们连忙跑过去请求帮助。小公鸡说：“长颈鹿哥哥你可以帮我们搭一座桥吗？”长颈鹿很快地答应了。长颈鹿哥哥脖子一伸，搭了一座桥，小白兔和小公鸡顺利的来到了河对岸。它们对长颈鹿哥哥说：“谢谢。”</div>`,
     fields:[
@@ -425,6 +475,36 @@ const S={
           <p style="margin:8px 0 0">· 「看图找线索」：看图时先问「它们遇到了什么麻烦？会怎么解决？」，再动笔写。</p>
           <p style="margin:6px 0 0">· 「慢动作拆分」：让孩子把「长颈鹿搭桥」和「小白兔过河」分别放慢成三个动作讲出来，练把动作写具体。</p>
         </div>`
+    },
+    report:{
+      score:[
+        {dim:"情感感知",lv:"强",note:"写出了「开开心心」「非常着急」，心情到位"},
+        {dim:"结构组织",lv:"强",note:"起因、经过、结果完整，还主动写出道理"},
+        {dim:"因果推断 / 想象延伸",lv:"强",note:"「灵机一动」「请长颈鹿搭桥」合理贴图"},
+        {dim:"细节捕捉",lv:"达标",note:"写了「小河很深」「脖子一伸」，动作还能更细"},
+        {dim:"双向转化",lv:"达标",note:"能把图上的画面转成文字，故事完整"}
+      ],
+      suggestions:[
+        {t:"用词更准确简洁",d:"「小白兔」重复太多，第二个可换成「它」；题里给的词「办法」没用上，可补「想个办法」。"},
+        {t:"用顺序词串过程",d:"用「先……接着……最后」把「来到河边→被挡住→想办法→搭桥→过河」串清楚。"}
+      ],
+      cards:[
+        {tag:"佳句",quote:"「小白兔灵机一动」",note:"把动脑筋写活了"},
+        {tag:"佳句",quote:"「脖子一伸，搭了一座桥」",note:"画面清楚，长颈鹿帮忙的样子很形象"},
+        {tag:"润色",quote:"「顺利的来到了河对岸」",note:"「的」改成「地」——顺利地"},
+        {tag:"润色",quote:"「小白兔灵机一动，小白兔对小公鸡说」",note:"第二个「小白兔」换成「它」"}
+      ],
+      original:[
+        "有一天，小白兔和小公鸡开开心心来到河边。可是它们被挡住了去路，小河很深，它们又不会游泳。小白兔和小公鸡非常着急。这个时候，小白兔看见不远处长颈鹿哥哥在吃草。",
+        "小白兔灵机一动，小白兔对小公鸡说：「我们可以找长颈鹿哥哥帮忙。」它们连忙跑过去请求帮助。小公鸡说：「长颈鹿哥哥你可以帮我们搭一座桥吗？」长颈鹿很快地答应了。",
+        "长颈鹿哥哥脖子一伸，搭了一座桥，小白兔和小公鸡顺利的来到了河对岸。它们对长颈鹿哥哥说：「谢谢。」",
+        "这个故事告诉我们：遇到事情要想办法解决，请求别人帮忙。"
+      ],
+      upgrade:[
+        {tag:"开头",note:"把小白兔和小公鸡的心情写出来，让开头更有画面。",example:"有一天，小白兔和小公鸡开开心心来到河边，正要过河，却被一条又深又急的小河挡住了去路。"},
+        {tag:"中间",note:"把「请长颈鹿帮忙」的过程写细，加上动作和对话。",example:"小公鸡仰起头说：「长颈鹿哥哥，你能帮我们搭一座桥吗？」长颈鹿笑着答应了，把长长的脖子一伸，稳稳地搭在河对岸。"},
+        {tag:"结尾",note:"把「谢谢」写具体，让结尾更有温度。",example:"它们回头大声说：「谢谢你，长颈鹿哥哥！」"}
+      ]
     }
   },
   normal:{
@@ -432,6 +512,16 @@ const S={
     recogTitle:"AI 正在识别作文中，请稍候...",
     recogSub:"正在识别学生作文内容",
     photo:NORMAL_PHOTO,
+    comments:[
+      `第一段是开头，作用是亮出心爱之物是什么。写得好——用「乐高？玩具熊？」两个问句吊起兴趣，再点出答案是家乡的小黄狗黄豆，起笔抓人。`,
+      `第二段是写黄豆的样子。用「放大镜」凑近看，抓住<span class="q">「自带眼线」</span><span class="q">「格格不入却彰显独特」</span>，把黄豆的样子写得又准又有个性。`,
+      `第三段只有一句「黄豆十分淘气」，作用是总起，把下面几件事都罩住了。用一句话单独成段、领起下文，是很清楚的结构写法。`,
+      `第四段写第一件淘气事（抓老鼠）。写得有画面——看见老鼠「想都不想便扑上去」。如果想要更准，可以把<span class="b">「扒」</span>改成<span class="g">「沾」</span>、<span class="b">「最板上」</span>改成<span class="g">「笼子上」</span>。`,
+      `第五段写第二件淘气事（走丢又被找回来），是全文写得最细的一件事，「拆了大半个狗窝」很有画面。如果想要更打动人，可以用「借物抒情·三个问题法」想一想：这件事为什么让你印象最深？字词上，把<span class="b">「变成了一只瘦猫」</span>改成<span class="g">「瘦了一大圈」</span>，繁体「<span class="b">纏</span>」写成<span class="g">「缠」</span>。`,
+      `第六段把视角转到家雀儿。用「老住户」「一家六口其乐融融」写它们原本的快乐，和后面被打破形成对比。如果想要句子更顺，可以把<span class="b">「在黄豆的出现」</span>改成<span class="g">「可是黄豆的出现」</span>。`,
+      `第七段写黄豆逗鸟。写得好——<span class="q">「大将军的架子」</span>这个比喻很传神，把黄豆得意神气的样子写活了，是全文的亮点。`,
+      `第八段是结尾，写黄豆离开和自己的不舍。从「枝折花落」的热闹转到「17 天前走了」，落差大、情感真。如果想要更有味道，可以用「借物抒情·联想法」——由黄豆的样子或某个画面，想到它给你的陪伴，把不舍自然地带出来。`
+    ],
     midRecog:`<div class="who">林小宇</div><div>我的心爱之物\n你的心爱之物是什么？乐高？玩具熊？我的心爱之物是家乡养的小黄狗黄豆。\n黄豆有一双炯炯有神的金色眼睛，而且自带眼线……</div>`,
     fields:[
       {label:"学生作文内容",req:true,
@@ -483,6 +573,42 @@ const S={
         <p>就这样，黄豆把整个院子闹得枝折花落。可就在 17 天前，它走了。院子里少了一位「瘸腿将军」，一下子空荡荡的。黄豆，我多希望某一天你能回到这片土地，让我们的院子重新洒满阳光。</p>`,
       advice:`<h3>诊断建议</h3>
         <div class="tipbox">宝贝，老师已经按五年级的习作要求认真读完了你这篇。只要你坚持自己观察、认真修改，每一篇都会比上一篇进步一点点。老师会一直陪着你，期待你的下一篇！</div>`
+    },
+    report:{
+      score:[
+        {dim:"审题与选材",lv:"良好",note:"写的是真实拥有的心爱之物，选材贴题"},
+        {dim:"结构与详略",lv:"中等",note:"结构完整，几件事详略可再分明"},
+        {dim:"语言（细节与画面感）",lv:"良好",note:"画面感强，个别词句可再顺"},
+        {dim:"情感与立意",lv:"良好",note:"情感真实，结尾动人"},
+        {dim:"基本功",lv:"中等",note:"语句通顺，几处错别字病句需订正"}
+      ],
+      suggestions:[
+        {t:"详略聚焦",d:"三件事写得较平均，用「借物抒情·三个问题法」挑「走丢被找到」一件详写。"},
+        {t:"顺个别词句",d:"「变成了一只瘦猫」应是「瘦了一大圈」；「在黄豆的出现」应是「可是黄豆的出现」。"},
+        {t:"情感再深一层",d:"用「借物抒情·联想法」由黄豆的画面联想到陪伴，让不舍更自然。"}
+      ],
+      cards:[
+        {tag:"佳句",quote:"「自带眼线」「格格不入却彰显独特」",note:"把黄豆的样子写得又准又有个性"},
+        {tag:"佳句",quote:"「拆了大半个狗窝才看见它」",note:"画面感强"},
+        {tag:"佳句",quote:"「大将军的架子」",note:"比喻传神，把黄豆的神气写活了"},
+        {tag:"润色",quote:"「扒了一身虱子」",note:"「扒」改成「沾」"},
+        {tag:"润色",quote:"「变成了一只瘦猫」",note:"改成「瘦了一大圈」"},
+        {tag:"润色",quote:"「在黄豆的出现」",note:"改成「可是黄豆的出现」"}
+      ],
+      original:[
+        "你的心爱之物是什么？乐高？玩具熊？我的心爱之物是家乡养的小黄狗黄豆。",
+        "黄豆有一双炯炯有神的金色眼睛，而且自带眼线，脸上那块黄色斑点与它身上黑色的毛发格格不入，却彰显着它的独特。",
+        "黄豆十分淘气。上次，黄豆在奶奶家看见了邻居家笼子上的老鼠，想都不想便扑了上去，结果自己反被沾了一身虱子。我和姐姐为它洗澡，它竟然抓了我一把。",
+        "还有一次，黄豆消失了一整天，大家找遍了整个大院，最终在小狗海海的狗窝里找到了它。它应该是被压住了，大家说干就干，拆了大半个狗窝才看见它。最后，黄豆瘦了一大圈。",
+        "家雀儿是我们院子的老住户了，一家六口其乐融融地在院西电箱上，可是黄豆的出现，打破了它们的快乐生活。",
+        "最开始，黄豆只是眼巴巴地望着雀窝，后来它叫来了附近村子的流浪猫，一起捣鸟巢，可真是一副「大将军」的架子呢！",
+        "就这样，黄豆把老大的院子搞得枝折花落。可惜黄豆在 17 天前走了，院中少了一位「瘸腿将军」。黄豆，我希望某一天你能回到这片土地，让我们的院子重新充满阳光！"
+      ],
+      upgrade:[
+        {tag:"开头",note:"用问句开头，直接点出心爱之物。",example:"你的心爱之物是什么？是一套乐高，还是一只玩具熊？我的心爱之物，是家乡那只叫「黄豆」的小黄狗。"},
+        {tag:"中间",note:"把「走丢被找到」这件最精彩的事写细。",example:"大家找遍了整个大院，最后在小狗海海的狗窝里发现了它——我们拆了大半个狗窝才把它扒出来，它瘦了一大圈。"},
+        {tag:"结尾",note:"由黄豆的画面联想到陪伴，让不舍更自然。",example:"黄豆，我多希望某一天你能回到这片土地，让我们的院子重新洒满阳光。"}
+      ]
     }
   }
 };
@@ -557,16 +683,10 @@ function renderConfirm(s){
 function renderResult(s){
   document.getElementById("resTitle").textContent=s.title;
   document.getElementById("resThumbs").innerHTML=`<p class="lbl2">图片列表</p>`+s.thumbs;
-  document.getElementById("resCanvas").innerHTML=`<div class="sheet">${s.canvas}</div>
-    <div class="legend">
-      <span><b class="lgrep"></b> 改正号（圈出原处，右上圈出正确内容，弧线相连）</span>
-      <span><b class="lgdel"><svg viewBox="0 0 34 16"><path d="M2 14 C6 3 11 3 12 10 C13 16 18 16 19 8 C20 1 25 2 32 6" fill="none" stroke="#e94a3f" stroke-width="2.4" stroke-linecap="round"/></svg></b> 删除号（圈出原处，右上一条卷曲线）</span>
-      <span><b class="lgadd"></b> 增补号（插入点写 ∧，弧线引至补写内容）</span>
-      <span><span class="good">波浪线</span> 好句</span>
-      <span><span style="color:var(--red)">红字</span> 旁批中的好句（引号内）</span>
-      <span><span style="color:var(--blue)">蓝字</span> 旁批中的病句原句</span>
-      <span><span style="color:var(--green)">绿字</span> 旁批中的润色后句子</span>
-    </div>`;
+  document.getElementById("resCanvas").innerHTML=`<div class="sheet sheet-img">
+    <div class="img-col">${s.photo}</div>
+    <div class="notes-col">${s.comments.map(c=>`<div class="note-item">${c}</div>`).join("")}</div>
+  </div>`;
   const tabs=document.getElementById("resTabs"), body=document.getElementById("resBody");
   tabs.innerHTML=s.tabs.map((t,i)=>`<div class="side-tab ${i===0?"active":""}" data-k="${t[0]}">${t[1]}</div>`).join("");
   body.innerHTML=s.data[s.tabs[0][0]];
@@ -576,7 +696,7 @@ function renderResult(s){
   }));
 }
 
-/* ---------- 导出到企微（demo） ---------- */
+/* ---------- 发送微信（demo） ---------- */
 let demoScene="normal";
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",2000);}
 function openWecom(){
@@ -584,7 +704,7 @@ function openWecom(){
   const parent=s.student==="王子涵"?{name:"王妈妈",account:"微信 · 王妈妈"}:{name:"林爸爸",account:"微信 · 林爸爸"};
   const body=document.getElementById("wecomBody"),foot=document.getElementById("wecomFoot"),mask=document.getElementById("wecomModal");
   if(demoScene==="noContact"){
-    body.innerHTML=`<p class="warn">无法找到联系人</p><p style="margin:0;color:#5c6b7a">未查到该学生对应的家长企微账号，无法发送。</p>`;
+    body.innerHTML=`<p class="warn">无法找到联系人</p><p style="margin:0;color:#5c6b7a">未查到该学生对应的家长微信，无法发送。</p>`;
     foot.innerHTML=`<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxLocal">导出到本地</button>`;
   }else{
     body.innerHTML=`
@@ -603,17 +723,47 @@ function openWecom(){
   [...foot.querySelectorAll('.demo-switch a')].forEach(a=>a.addEventListener("click",()=>{demoScene=a.dataset.scene;openWecom();}));
 }
 document.getElementById("wecomExport").addEventListener("click",openWecom);
+function bindExport(btnId,menuId){
+  document.getElementById(btnId).addEventListener("click",(e)=>{e.stopPropagation();document.getElementById(menuId).classList.toggle("on");});
+}
+bindExport("exportBtn1","exportMenu1");
+bindExport("exportBtn2","exportMenu2");
+document.addEventListener("click",()=>{["exportMenu1","exportMenu2"].forEach(id=>document.getElementById(id).classList.remove("on"));});
+document.querySelectorAll(".export-menu a").forEach(a=>a.addEventListener("click",()=>showToast("已"+a.textContent)));
 function renderPreview(){
   const s=S[curKey()];
   document.getElementById("prevTitle").textContent=s.title;
-  document.getElementById("previewBody").innerHTML=`<div class="preview-paper">${s.tabs.map(([k])=>s.data[k]).join("")}</div>`;
+  const r=s.report;
+  const review=(s.data.review||'').replace(/<h3>[^<]*<\/h3>/,'');
+  const polish=(s.data.polish||'').replace(/<h3>[^<]*<\/h3>/,'');
+  const advice=(s.data.ability||s.data.advice||'').replace(/<h3>[^<]*<\/h3>/,'');
+  const score=r.score.map(x=>`<tr><td>${x.dim}</td><td class="lv ${x.lv==='强'||x.lv==='良好'?'good':''}">${x.lv}</td><td>${x.note}</td></tr>`).join("");
+  const sugg=r.suggestions.map((x,i)=>`<div class="sugg"><b>${i+1}. ${x.t}：</b>${x.d}</div>`).join("");
+  const cards=r.cards.map((x,i)=>`<div class="card ${x.tag==='佳句'?'jia':'run'}"><span class="no">${'①②③④⑤⑥'[i]}</span><span class="tag">【${x.tag}】</span><span class="quote">${x.quote}</span><span class="note">——${x.note}</span></div>`).join("");
+  const origin=r.original.map(x=>`<p class="indent">${x}</p>`).join("");
+  const upgrade=r.upgrade.map(x=>`<div class="upgrade"><span class="tag">【${x.tag}】</span>${x.note}<div class="example">例句：${x.example}</div></div>`).join("");
+  document.getElementById("previewBody").innerHTML=`
+    <div class="report">
+      <div class="report-title">作文批阅报告</div>
+      <div class="meta">${s.grade} · ${s.unit}　|　学生：${s.student}</div>
+      <div class="meta title">${s.title}</div>
+      <h2>评分维度</h2>
+      <table class="score"><tr><th style="width:30%">维度</th><th style="width:16%">等级</th><th>说明</th></tr>${score}</table>
+      <h2>总体评价</h2>${review}
+      <h2>修改建议</h2>${sugg}
+      <h2>佳句与润色</h2>${cards}
+      <h2>原文点评</h2>${origin}
+      <h2>升格指导</h2>${upgrade}
+      ${polish}
+      ${advice}
+    </div>`;
 }
 document.getElementById("previewBtn").addEventListener("click",()=>{renderPreview();show("preview");});
 document.getElementById("wecomExport2").addEventListener("click",openWecom);
 </script>
 <div class="modal-mask" id="wecomModal">
   <div class="modal">
-    <div class="modal-head">导出到企微</div>
+    <div class="modal-head">发送微信</div>
     <div class="modal-body" id="wecomBody"></div>
     <div class="modal-foot" id="wecomFoot"></div>
   </div>
