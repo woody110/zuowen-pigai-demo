@@ -551,7 +551,7 @@ const S={
         <div class="note">第七段写黄豆逗鸟。写得好——<span class="q">「大将军的架子」</span>这个比喻很传神，把黄豆得意神气的样子写活了，是全文的亮点。</div></div>
       <div class="para"><div class="text">就这样，黄豆把老大的院子搞得<span class="good">枝折花落</span>。可惜黄豆在 17 天前走了，院中少了一位「瘸腿将军」，显得空荡荡的。黄豆，我希望某一天你能回到这片土地，<span class="good">让我们的院子重新充满阳光</span>！</div>
         <div class="note">第八段是结尾，写黄豆离开和自己的不舍。从「枝折花落」的热闹转到「17 天前走了」，落差大、情感真。如果想要更有味道，可以用「借物抒情·联想法」——由黄豆的样子或某个画面，想到它给你的陪伴，把不舍自然地带出来。</div></div>`,
-    tabs:[["review","总评"],["detail","详细点评"],["polish","全文润色"],["ability","反馈建议"],["advice","固定进步寄语"]],
+    tabs:[["review","总评"],["detail","详细点评"],["polish","全文润色"],["ability","反馈建议"]],
     data:{
       review:`<h3>总评</h3>
         <p>孩子这篇《我的心爱之物》写得很动人，扎实做到了第一单元「写清心爱之物的样子、交代来历、表达喜爱之情」的要求，尤其把和黄豆之间的几件事写得又真又活，是一篇超出同龄平均水平的好作文。</p>
@@ -585,9 +585,7 @@ const S={
         <div class="tipbox"><b>给家长的家庭辅导小锦囊</b>
           <p style="margin:8px 0 0">· 「慢动作拆分」：让孩子把「拆狗窝救黄豆」的过程放慢成几个动作讲出来，练把动作写具体。</p>
           <p style="margin:6px 0 0">· 「由物及情」：和孩子聊「黄豆哪个瞬间最让你舍不得」，把心里的感受写进作文。</p>
-        </div>`,
-      advice:`<h3>固定进步寄语</h3>
-        <div class="tipbox">宝贝，老师已经按五年级的习作要求认真读完了你这篇。只要你坚持自己观察、认真修改，每一篇都会比上一篇进步一点点。老师会一直陪着你，期待你的下一篇！</div>`
+        </div>`
     },
     report:{
       score:[
@@ -754,7 +752,6 @@ function renderPreview(){
   const review=(s.data.review||'').replace(/<h3>[^<]*<\/h3>/,'');
   const polish=(s.data.polish||'').replace(/<h3>[^<]*<\/h3>/,'');
   const ability=(s.data.ability||'').replace(/<h3>[^<]*<\/h3>/,'');
-  const advice=(s.data.advice||'').replace(/<h3>[^<]*<\/h3>/,'');
   const score=r.score.map(x=>`<tr><td>${x.dim}</td><td class="lv ${x.lv==='强'||x.lv==='良好'?'good':''}">${x.lv}</td><td>${x.note}</td></tr>`).join("");
   const sugg=r.suggestions.map((x,i)=>`<div class="sugg"><b>${i+1}. ${x.t}：</b>${x.d}</div>`).join("");
   const cards=r.cards.map((x,i)=>`<div class="card ${x.tag==='佳句'?'jia':'run'}"><span class="no">${'①②③④⑤⑥'[i]}</span><span class="tag">【${x.tag}】</span><span class="quote">${x.quote}</span><span class="note">——${x.note}</span></div>`).join("");
@@ -774,7 +771,6 @@ function renderPreview(){
       <h2>升格指导</h2>${upgrade}
       ${polish}
       ${ability}
-      ${advice}
     </div>`;
 }
 document.getElementById("previewBtn").addEventListener("click",()=>{renderPreview();show("preview");});
