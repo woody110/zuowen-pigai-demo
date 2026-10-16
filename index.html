@@ -123,12 +123,6 @@
   .note .q{color:var(--red)}
   .note .b{color:var(--blue)}
   .note .g{color:var(--green)}
-  .tg{display:inline-block;font-size:11px;font-weight:600;line-height:1;padding:2px 5px;
-    border-radius:4px;margin:0 2px;vertical-align:1px;
-    font-family:"PingFang SC","Microsoft YaHei",sans-serif}
-  .tg.good{background:#fdecec;color:var(--red)}
-  .tg.bad{background:#eaf1fd;color:var(--blue)}
-  .tg.polish{background:#e7f6ec;color:var(--green)}
   .good{text-decoration:underline wavy var(--red);text-underline-offset:5px;text-decoration-thickness:2px}
   .avatar{width:30px;height:30px;border-radius:50%;background:#fbe3df;color:var(--brand);
     display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
@@ -262,13 +256,6 @@
   .note-item .q{color:var(--red)}
   .note-item .b{color:var(--blue)}
   .note-item .g{color:var(--green)}
-  .ann-box{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
-  .ann-title{font-size:13px;font-weight:700;margin-bottom:8px;color:#3b4757}
-  .ann-item{font-size:12.5px;line-height:1.6;margin-bottom:6px;padding:4px 9px;border-radius:6px}
-  .ann-item .ann-tag{font-weight:700;margin-right:4px}
-  .ann-item.good{background:#fdf4f3;color:#b3403a}
-  .ann-item.bad{background:#eef4fe;color:#2e6be6}
-  .ann-item.polish{background:#eef8f1;color:#2f8f57}
 </style>
 </head>
 <body>
@@ -434,15 +421,8 @@ const S={
     recogSub:"正在识别题目图片、题目要求与学生作文内容",
     photo:PIC_PHOTO,
     comments:[
-      `第一段是全文，写了小白兔和小公鸡来到河边、被河挡住、想办法请长颈鹿搭桥、顺利过河，把事情从头到尾讲清楚了，还写出了<span class="tg good">【佳句】</span><span class="q">「非常着急」「灵机一动」「脖子一伸，搭了一座桥」</span>这些好句。如果想要更准，可以把<span class="tg polish">【润色】</span><span class="b">「顺利的」</span>改成<span class="g">「顺利地」</span>，把第二个<span class="b">「小白兔」</span>换成<span class="g">「它」</span>。`,
-      `第二段写出了一个道理——<span class="tg good">【佳句】</span><span class="q">「遇到事情要想办法解决，请求别人帮忙」</span>，二年级能主动点明道理很难得。如果想要更自然，可以让道理从故事里自己「长」出来，比如先说「要不是小白兔动了脑筋，它们就过不了河」。`
-    ],
-    annotations:[
-      {type:"good",quote:"非常着急",note:"写出遇到困难的心情",belongs:"1"},
-      {type:"good",quote:"灵机一动",note:"把动脑筋写活了",belongs:"1"},
-      {type:"good",quote:"脖子一伸，搭了一座桥",note:"画面清楚，长颈鹿帮忙的样子很形象",belongs:"1"},
-      {type:"good",quote:"遇到事情要想办法解决，请求别人帮忙",note:"二年级能主动点明道理",belongs:"2"},
-      {type:"polish",quote:"顺利的",note:"原「顺利的」→ 改「顺利地」",belongs:"1"}
+      `第一段是全文，写了小白兔和小公鸡来到河边、被河挡住、想办法请长颈鹿搭桥、顺利过河，把事情从头到尾讲清楚了，还写出了<span class="q">「非常着急」「灵机一动」「脖子一伸，搭了一座桥」</span>这些好句。如果想要更准，可以把<span class="b">「顺利的」</span>改成<span class="g">「顺利地」</span>，把第二个<span class="b">「小白兔」</span>换成<span class="g">「它」</span>。`,
+      `第二段写出了一个道理——<span class="q">「遇到事情要想办法解决，请求别人帮忙」</span>，二年级能主动点明道理很难得。如果想要更自然，可以让道理从故事里自己「长」出来，比如先说「要不是小白兔动了脑筋，它们就过不了河」。`
     ],
     midRecog:`<div class="lab">看图写话</div><div>看图写话。（一）右图画的是什么地方？图上都有谁？想一想：它们遇到了什么问题？它们是怎么做的呢？写一写。用一用：过河 办法 搭桥 开心</div>
       <div class="who">王子涵</div><div>有一天，小白兔和小公鸡开开心心来到河边。可是它们被挡住了去路，小河很深，它们又不会游泳。小白兔和小公鸡非常着急。这个时候，小白兔看见不远处长颈鹿哥哥在吃草。小白兔灵机一动，小白兔对小公鸡说：“我们可以找长颈鹿哥哥帮忙。”它们连忙跑过去请求帮助。小公鸡说：“长颈鹿哥哥你可以帮我们搭一座桥吗？”长颈鹿很快地答应了。长颈鹿哥哥脖子一伸，搭了一座桥，小白兔和小公鸡顺利的来到了河对岸。它们对长颈鹿哥哥说：“谢谢。”</div>`,
@@ -536,27 +516,14 @@ const S={
     recogSub:"正在识别学生作文内容",
     photo:NORMAL_PHOTO,
     comments:[
-      `第一段是开头，作用是亮出心爱之物是什么。写得好——用<span class="tg good">【佳句】</span><span class="q">「乐高？玩具熊？」</span>两个问句吊起兴趣，再点出答案是家乡的小黄狗黄豆，起笔抓人。`,
-      `第二段是写黄豆的样子。用「放大镜」凑近看，抓住<span class="tg good">【佳句】</span><span class="q">「自带眼线」</span>、<span class="q">「格格不入却彰显独特」</span>，把黄豆的样子写得又准又有个性。`,
+      `第一段是开头，作用是亮出心爱之物是什么。写得好——用「乐高？玩具熊？」两个问句吊起兴趣，再点出答案是家乡的小黄狗黄豆，起笔抓人。`,
+      `第二段是写黄豆的样子。用「放大镜」凑近看，抓住<span class="q">「自带眼线」</span><span class="q">「格格不入却彰显独特」</span>，把黄豆的样子写得又准又有个性。`,
       `第三段只有一句「黄豆十分淘气」，作用是总起，把下面几件事都罩住了。用一句话单独成段、领起下文，是很清楚的结构写法。`,
-      `第四段写第一件淘气事（抓老鼠）。写得有画面——看见老鼠「想都不想便扑上去」。如果想要更准，可以把<span class="tg polish">【润色】</span><span class="b">「扒」</span>改成<span class="g">「沾」</span>、<span class="b">「最板上」</span>改成<span class="g">「笼子上」</span>。`,
-      `第五段写第二件淘气事（走丢又被找回来），是全文写得最细的一件事，<span class="tg good">【佳句】</span><span class="q">「拆了大半个狗窝才看见它」</span>很有画面。如果想要更打动人，可以用「借物抒情·三个问题法」想一想：这件事为什么让你印象最深？字词上，<span class="tg bad">【病句】</span><span class="b">「变成了一只瘦猫」</span>应改成<span class="g">「瘦了一大圈」</span>，繁体<span class="tg polish">【润色】</span><span class="b">「纏」</span>写成<span class="g">「缠」</span>。`,
-      `第六段把视角转到家雀儿。用「老住户」「一家六口其乐融融」写它们原本的快乐，和后面被打破形成对比。如果想要句子更顺，可以把<span class="tg bad">【病句】</span><span class="b">「在黄豆的出现」</span>改成<span class="g">「可是黄豆的出现」</span>。`,
-      `第七段写黄豆逗鸟。写得好——<span class="tg good">【佳句】</span><span class="q">「大将军的架子」</span>这个比喻很传神，把黄豆得意神气的样子写活了，是全文的亮点。`,
-      `第八段是结尾，写黄豆离开和自己的不舍。从「枝折花落」的热闹转到「17 天前走了」，落差大、情感真。<span class="tg good">【佳句】</span><span class="q">「让我们的院子重新充满阳光」</span>把不舍写得真诚。如果想要更有味道，可以用「借物抒情·联想法」——由黄豆的样子或某个画面，想到它给你的陪伴，把不舍自然地带出来。`
-    ],
-    annotations:[
-      {type:"good",quote:"乐高？玩具熊？",note:"两个问句吊起兴趣，起笔抓人",belongs:"1"},
-      {type:"good",quote:"自带眼线",note:"把眼睛写得又准又有个性",belongs:"2"},
-      {type:"good",quote:"格格不入，却彰显着它的独特",note:"写出黄豆样子的独特",belongs:"2"},
-      {type:"good",quote:"拆了大半个狗窝才看见它",note:"画面感强",belongs:"5"},
-      {type:"good",quote:"「大将军」的架子",note:"比喻传神，把得意神气写活了",belongs:"7"},
-      {type:"good",quote:"让我们的院子重新充满阳光",note:"结尾不舍写得真诚",belongs:"8"},
-      {type:"polish",quote:"最板上",note:"原「最板上」→ 改「笼子上」",belongs:"4"},
-      {type:"polish",quote:"扒",note:"原「扒」→ 改「沾」",belongs:"4"},
-      {type:"bad",quote:"变成了一只瘦猫",note:"意思没说清，应改成「瘦了一大圈」",belongs:"5"},
-      {type:"polish",quote:"纏",note:"繁体字，原「纏」→ 改「缠」",belongs:"5"},
-      {type:"bad",quote:"在黄豆的出现",note:"缺转折词，应改成「可是黄豆的出现」",belongs:"6"}
+      `第四段写第一件淘气事（抓老鼠）。写得有画面——看见老鼠「想都不想便扑上去」。如果想要更准，可以把<span class="b">「扒」</span>改成<span class="g">「沾」</span>、<span class="b">「最板上」</span>改成<span class="g">「笼子上」</span>。`,
+      `第五段写第二件淘气事（走丢又被找回来），是全文写得最细的一件事，「拆了大半个狗窝」很有画面。如果想要更打动人，可以用「借物抒情·三个问题法」想一想：这件事为什么让你印象最深？字词上，把<span class="b">「变成了一只瘦猫」</span>改成<span class="g">「瘦了一大圈」</span>，繁体「<span class="b">纏</span>」写成<span class="g">「缠」</span>。`,
+      `第六段把视角转到家雀儿。用「老住户」「一家六口其乐融融」写它们原本的快乐，和后面被打破形成对比。如果想要句子更顺，可以把<span class="b">「在黄豆的出现」</span>改成<span class="g">「可是黄豆的出现」</span>。`,
+      `第七段写黄豆逗鸟。写得好——<span class="q">「大将军的架子」</span>这个比喻很传神，把黄豆得意神气的样子写活了，是全文的亮点。`,
+      `第八段是结尾，写黄豆离开和自己的不舍。从「枝折花落」的热闹转到「17 天前走了」，落差大、情感真。如果想要更有味道，可以用「借物抒情·联想法」——由黄豆的样子或某个画面，想到它给你的陪伴，把不舍自然地带出来。`
     ],
     midRecog:`<div class="who">林小宇</div><div>我的心爱之物\n你的心爱之物是什么？乐高？玩具熊？我的心爱之物是家乡养的小黄狗黄豆。\n黄豆有一双炯炯有神的金色眼睛，而且自带眼线……</div>`,
     fields:[
@@ -733,7 +700,7 @@ function renderResult(s){
   document.getElementById("resThumbs").innerHTML=`<p class="lbl2">图片列表</p>`+s.thumbs;
   document.getElementById("resCanvas").innerHTML=`<div class="sheet sheet-img">
     <div class="img-col">${s.photo}</div>
-    <div class="notes-col">${s.comments.map(c=>`<div class="note-item">${c}</div>`).join("")}${renderAnn(s.annotations)}</div>
+    <div class="notes-col">${s.comments.map(c=>`<div class="note-item">${c}</div>`).join("")}</div>
   </div>`;
   const tabs=document.getElementById("resTabs"), body=document.getElementById("resBody");
   tabs.innerHTML=s.tabs.map((t,i)=>`<div class="side-tab ${i===0?"active":""}" data-k="${t[0]}">${t[1]}</div>`).join("");
@@ -742,11 +709,6 @@ function renderResult(s){
     tabs.querySelectorAll(".side-tab").forEach(x=>x.classList.remove("active"));
     t.classList.add("active"); body.innerHTML=s.data[t.dataset.k];
   }));
-}
-function renderAnn(list){
-  if(!list||!list.length) return "";
-  const tag={good:"【佳句】",bad:"【病句】",polish:"【润色】"};
-  return `<div class="ann-box"><div class="ann-title">标注（好句 / 病句 / 错别字）</div>${list.map(a=>`<div class="ann-item ${a.type}"><span class="ann-tag">${tag[a.type]}</span>「${a.quote}」——${a.note}</div>`).join("")}</div>`;
 }
 
 /* ---------- 发送微信（demo） ---------- */
