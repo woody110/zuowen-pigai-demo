@@ -256,6 +256,19 @@
   .note-item .q{color:var(--red)}
   .note-item .b{color:var(--blue)}
   .note-item .g{color:var(--green)}
+  .preview-paper .lead{background:linear-gradient(135deg,#fff7f4,#fffdf9);border:1px solid #f6e1d8;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.9;color:#3b4757;margin:16px 0}
+  .preview-paper .praise{display:flex;flex-direction:column;gap:8px}
+  .preview-paper .praise .item{display:flex;gap:10px;background:#eaf6ef;border:1px solid #dceee2;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.9;color:#2f6b48}
+  .preview-paper .praise .tag{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--green);background:#fff;border:1px solid #cfe7d7;border-radius:5px;padding:1px 6px;height:fit-content}
+  .preview-paper .problem{background:#fdf0ef;border:1px solid #f4d9d5;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.9;color:#5c3a38}
+  .preview-paper .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .preview-paper .compare .box{background:#fff;border:1px solid #eee;border-radius:9px;padding:9px 11px;font-size:12.5px;line-height:1.85;color:#3b4757}
+  .preview-paper .compare .box.after{background:#fffdf8;border-color:#f0e6d0}
+  .preview-paper .compare .lbl{display:block;font-size:11px;font-weight:700;margin-bottom:4px}
+  .preview-paper .compare .before .lbl{color:#9aa0a8}
+  .preview-paper .compare .after .lbl{color:#a85a00}
+  .preview-paper .method{background:#eef4fe;border:1px solid #d9e6f7;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.9;color:#2b4a7a}
+  .preview-paper .closing{text-align:center;background:#fbf5e8;border:1px solid #eadfc4;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:2;color:#6b5a3a;margin-top:8px}
 </style>
 </head>
 <body>
@@ -748,29 +761,35 @@ document.querySelectorAll(".export-menu a").forEach(a=>a.addEventListener("click
 function renderPreview(){
   const s=S[curKey()];
   document.getElementById("prevTitle").textContent=s.title;
-  const r=s.report;
-  const review=(s.data.review||'').replace(/<h3>[^<]*<\/h3>/,'');
-  const polish=(s.data.polish||'').replace(/<h3>[^<]*<\/h3>/,'');
-  const ability=(s.data.ability||'').replace(/<h3>[^<]*<\/h3>/,'');
-  const score=r.score.map(x=>`<tr><td>${x.dim}</td><td class="lv ${x.lv==='强'||x.lv==='良好'?'good':''}">${x.lv}</td><td>${x.note}</td></tr>`).join("");
-  const sugg=r.suggestions.map((x,i)=>`<div class="sugg"><b>${i+1}. ${x.t}：</b>${x.d}</div>`).join("");
-  const cards=r.cards.map((x,i)=>`<div class="card ${x.tag==='佳句'?'jia':'run'}"><span class="no">${'①②③④⑤⑥'[i]}</span><span class="tag">【${x.tag}】</span><span class="quote">${x.quote}</span><span class="note">——${x.note}</span></div>`).join("");
-  const origin=r.original.map(x=>`<p class="indent">${x}</p>`).join("");
-  const upgrade=r.upgrade.map(x=>`<div class="upgrade"><span class="tag">【${x.tag}】</span>${x.note}<div class="example">例句：${x.example}</div></div>`).join("");
   document.getElementById("previewBody").innerHTML=`
-    <div class="report">
-      <div class="report-title">作文批阅报告</div>
-      <div class="meta">${s.grade} · ${s.unit}　|　学生：${s.student}</div>
-      <div class="meta title">${s.title}</div>
-      <h2>评分维度</h2>
-      <table class="score"><tr><th style="width:30%">维度</th><th style="width:16%">等级</th><th>说明</th></tr>${score}</table>
-      <h2>总体评价</h2>${review}
-      <h2>修改建议</h2>${sugg}
-      <h2>佳句与润色</h2>${cards}
-      <h2>原文点评</h2>${origin}
-      <h2>升格指导</h2>${upgrade}
-      ${polish}
-      ${ability}
+    <div class="preview-paper">
+      <div class="report-title" style="color:var(--brand)">作文批阅报告 · 家长版</div>
+      <div class="meta" style="text-align:center;color:var(--ink2);font-size:12.5px">${s.grade} · ${s.unit}　|　学生：${s.student}</div>
+      <div class="meta title" style="text-align:center;color:var(--ink);font-weight:600">${s.title}</div>
+      <div class="lead">孩子这篇《我的心爱之物》写得很动人，把黄豆的样子和几件淘气事写得又真又活，最难得的是结尾对黄豆的想念真诚不煽情。</div>
+      <h3>孩子写得好的地方</h3>
+      <div class="praise">
+        <div class="item"><span class="tag">好句</span><span>「自带眼线」「格格不入却彰显独特」——把黄豆的样子写得又准又有个性。</span></div>
+        <div class="item"><span class="tag">好句</span><span>「拆了大半个狗窝才看见它」「大将军的架子」——画面感强，把黄豆的神气写活了。</span></div>
+      </div>
+      <h3>这篇最值得改的一处</h3>
+      <div class="problem">三件事都写得很平均，详略不够分明。建议挑最动人的「走丢被找到」写细，其余略写。</div>
+      <div class="compare">
+        <div class="box before"><span class="lbl">改前</span>还有一次，黄豆消失了一整天，大家找遍了整个大院……最后，黄豆变成了一只瘦猫。</div>
+        <div class="box after"><span class="lbl">改后</span>还有一次，黄豆一整天没了踪影。我们拆了大半个狗窝才把它扒出来，它后腿缠着麻绳，被救出来时已经瘦了一大圈。</div>
+      </div>
+      <h3>下次写作文，记住这个方法</h3>
+      <div class="method"><b>「借物抒情 · 三个问题法」：</b>先想“哪件事最打动我 / 为什么”，再挑“走丢被找到”详写，把拆狗窝、发现麻绳的过程放慢动作写。</div>
+      <h3>给家长的小练习</h3>
+      <p>1. 让孩子把“拆狗窝救黄豆”的过程放慢成三个动作讲出来，练把动作写具体。</p>
+      <p>2. 和孩子聊“黄豆哪个瞬间最让你舍不得”，把心里的感受写进作文。</p>
+      <h3>能力诊断</h3>
+      <div class="sig"><span class="lv strong">强</span><span><b>审题与选材</b>：写真实拥有的小黄狗，选材贴题。</span></div>
+      <div class="sig"><span class="lv strong">强</span><span><b>语言 · 细节与画面感</b>：「拆了大半个狗窝」「大将军的架子」画面感强。</span></div>
+      <div class="sig"><span class="lv strong">强</span><span><b>情感与立意</b>：情感真实，结尾对黄豆的想念很动人。</span></div>
+      <div class="sig"><span class="lv ok">达标</span><span><b>结构与详略</b>：结构完整，三件事详略可再分明。</span></div>
+      <div class="sig"><span class="lv ok">达标</span><span><b>基本功</b>：语句通顺，几处错别字病句需订正。</span></div>
+      <div class="closing">宝贝，你已经会用具体画面写故事了。再让最打动你的那件事慢慢展开，你的作文会更动人。老师会一直陪着你改。</div>
     </div>`;
 }
 document.getElementById("previewBtn").addEventListener("click",()=>{renderPreview();show("preview");});
