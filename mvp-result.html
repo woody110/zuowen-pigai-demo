@@ -269,6 +269,9 @@
   .preview-paper .compare .after .lbl{color:#a85a00}
   .preview-paper .method{background:#eef4fe;border:1px solid #d9e6f7;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.9;color:#2b4a7a}
   .preview-paper .closing{text-align:center;background:#fbf5e8;border:1px solid #eadfc4;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:2;color:#6b5a3a;margin-top:8px}
+  .preview-paper .passage{background:#fafbfc;border:1px solid var(--line);border-radius:10px;padding:6px 12px}
+  .preview-paper .passage .para{grid-template-columns:1fr 250px;gap:18px;padding:8px 0;border-bottom:1px dashed #e5e9f0}
+  .preview-paper .passage .para:last-child{border-bottom:0}
 </style>
 </head>
 <body>
@@ -767,6 +770,23 @@ function renderPreview(){
       <div class="meta" style="text-align:center;color:var(--ink2);font-size:12.5px">${s.grade} · ${s.unit}　|　学生：${s.student}</div>
       <div class="meta title" style="text-align:center;color:var(--ink);font-weight:600">${s.title}</div>
       <div class="lead">孩子这篇《我的心爱之物》写得很动人，把黄豆的样子和几件淘气事写得又真又活，最难得的是结尾对黄豆的想念真诚不煽情。</div>
+      <h3>能力表现</h3>
+      <div class="sig"><span class="lv strong">强</span><span><b>审题与选材</b>：写真实拥有的小黄狗，选材贴题。</span></div>
+      <div class="sig"><span class="lv strong">强</span><span><b>语言 · 细节与画面感</b>：「拆了大半个狗窝」「大将军的架子」画面感强。</span></div>
+      <div class="sig"><span class="lv strong">强</span><span><b>情感与立意</b>：情感真实，结尾对黄豆的想念很动人。</span></div>
+      <div class="sig"><span class="lv ok">达标</span><span><b>结构与详略</b>：结构完整，三件事详略可再分明。</span></div>
+      <div class="sig"><span class="lv ok">达标</span><span><b>基本功</b>：语句通顺，几处错别字病句需订正。</span></div>
+      <h3>作文原文 + 段落旁批</h3>
+      <div class="passage">
+        <div class="para"><div class="text">你的心爱之物是什么？乐高？玩具熊？我的心爱之物是家乡养的小黄狗黄豆。</div><div class="note">第一段亮出心爱之物，用两个问句吊起兴趣，再点出答案，起笔抓人。</div></div>
+        <div class="para"><div class="text">黄豆有一双炯炯有神的金色眼睛，而且自带眼线，脸上那块黄色斑点与它身上黑色的毛发格格不入，却彰显着它的独特。</div><div class="note">第二段写黄豆的样子。用「放大镜」凑近看，抓住「自带眼线」「格格不入却彰显独特」，写得又准又有个性。</div></div>
+        <div class="para"><div class="text">黄豆十分淘气。</div><div class="note">第三段只有一句，作用是总起，把下面几件事都罩住了。</div></div>
+        <div class="para"><div class="text">上次，黄豆在奶奶家看见了邻居家笼子上的老鼠，想都不想便扑了上去，结果自己反被沾了一身虱子。我和姐姐为它洗澡，它竟然抓了我一把。</div><div class="note">第四段写抓老鼠。写得有画面，看见老鼠「想都不想便扑上去」。字词上「扒」改成「沾」、「最板上」改成「笼子上」。</div></div>
+        <div class="para"><div class="text">还有一次，黄豆消失了一整天，大家找遍了整个大院，最终在小狗海海的狗窝里找到了它。它应该是被压住了，大家说干就干，拆了大半个狗窝才看见它——它的后腿上缠了根麻绳，死死地缠住它，动弹不得。最后，黄豆瘦了一大圈。</div><div class="note">第五段写走丢又被找回来，是全文写得最细的一件，「拆了大半个狗窝才看见它」很有画面。可以挑这件详写。</div></div>
+        <div class="para"><div class="text">家雀儿是我们院子的老住户了，一家六口其乐融融地在院西电箱上，可是黄豆的出现，打破了它们的快乐生活。</div><div class="note">第六段把视角转到家雀儿，和后面被打破形成对比。「在黄豆的出现」改成「可是黄豆的出现」。</div></div>
+        <div class="para"><div class="text">最开始，黄豆只是眼巴巴地望着雀窝，后来它叫来了附近村子的流浪猫，一起捣鸟巢，可真是一副「大将军」的架子呢！</div><div class="note">第七段写黄豆逗鸟，「大将军的架子」比喻传神，把黄豆得意的神气写活了。</div></div>
+        <div class="para"><div class="text">就这样，黄豆把老大的院子搞得枝折花落。可惜黄豆在 17 天前走了，院中少了一位「瘸腿将军」。黄豆，我希望某一天你能回到这片土地，让我们的院子重新充满阳光！</div><div class="note">第八段是结尾，写黄豆离开和不舍，情感真。</div></div>
+      </div>
       <h3>孩子写得好的地方</h3>
       <div class="praise">
         <div class="item"><span class="tag">好句</span><span>「自带眼线」「格格不入却彰显独特」——把黄豆的样子写得又准又有个性。</span></div>
@@ -783,12 +803,6 @@ function renderPreview(){
       <h3>给家长的小练习</h3>
       <p>1. 让孩子把“拆狗窝救黄豆”的过程放慢成三个动作讲出来，练把动作写具体。</p>
       <p>2. 和孩子聊“黄豆哪个瞬间最让你舍不得”，把心里的感受写进作文。</p>
-      <h3>能力诊断</h3>
-      <div class="sig"><span class="lv strong">强</span><span><b>审题与选材</b>：写真实拥有的小黄狗，选材贴题。</span></div>
-      <div class="sig"><span class="lv strong">强</span><span><b>语言 · 细节与画面感</b>：「拆了大半个狗窝」「大将军的架子」画面感强。</span></div>
-      <div class="sig"><span class="lv strong">强</span><span><b>情感与立意</b>：情感真实，结尾对黄豆的想念很动人。</span></div>
-      <div class="sig"><span class="lv ok">达标</span><span><b>结构与详略</b>：结构完整，三件事详略可再分明。</span></div>
-      <div class="sig"><span class="lv ok">达标</span><span><b>基本功</b>：语句通顺，几处错别字病句需订正。</span></div>
       <div class="closing">宝贝，你已经会用具体画面写故事了。再让最打动你的那件事慢慢展开，你的作文会更动人。老师会一直陪着你改。</div>
     </div>`;
 }
