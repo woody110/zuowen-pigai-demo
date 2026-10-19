@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>作文批改助手 · 三件套结果页</title>
+<style>
+  :root{--brand:#f5633f;--brand-d:#e2552f;--ink:#1f2733;--ink2:#5c6b7a;--line:#ebedf0;--bg:#f2f4f6;--red:#e94a3f;--blue:#2e6be6;--green:#2f8f57;--amber:#a85a00}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px}
+  .app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+  .top{flex:0 0 54px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 18px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+  .brand-logo{width:26px;height:26px;border-radius:7px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center}
+  .back{border:0;background:none;color:var(--ink2);cursor:pointer;font-size:13px}
+  .gap{flex:1}
+  .docTitle{font-weight:600;font-size:15px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 13px;font-size:13px;cursor:pointer;color:var(--ink)}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+  .btn.ghost{color:var(--ink2)}
+  .main{flex:1;display:flex;min-height:0}
+  .thumbs{flex:0 0 96px;background:#fff;border-right:1px solid var(--line);padding:12px 10px;overflow:auto}
+  .lbl2{font-size:12px;color:var(--ink2);margin:0 0 8px 2px}
+  .thumb{border:2px solid var(--brand);border-radius:8px;overflow:hidden;margin-bottom:10px}
+  .thumb .ph{height:120px;background:linear-gradient(160deg,#f7f2ec,#efe9e0);display:flex;align-items:center;justify-content:center;color:#c4b6a3;font-size:12px;writing-mode:vertical-rl}
+  .canvas-wrap{flex:1;min-width:0;overflow:auto;padding:22px 26px}
+  .sheet{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 12px rgba(31,39,51,.06);max-width:820px;margin:0 auto;padding:28px 30px 36px}
+  .sheet h1{font-size:20px;text-align:center;margin:0 0 20px;letter-spacing:2px}
+  .para{display:grid;grid-template-columns:1fr 250px;gap:22px;padding:9px 0;border-bottom:1px dashed #e9edf1}
+  .para:last-child{border-bottom:0}
+  .text{font-size:15px;line-height:2.3;text-indent:2em;color:#243040}
+  .text .good{color:#2f8f57;text-decoration:underline wavy var(--green);text-underline-offset:5px}
+  .note{font-size:13px;line-height:1.85;color:#2b3646;font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px}
+  .note .q{color:var(--red)}
+  .note .g{color:var(--green)}
+  .side{flex:0 0 430px;background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  .side-tabs{display:flex;gap:6px;padding:12px 14px 0;border-bottom:1px solid var(--line)}
+  .side-tab{padding:7px 8px 11px;font-size:14px;color:var(--ink2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+  .side-tab.active{color:var(--brand);font-weight:600;border-bottom-color:var(--brand)}
+  .side-body{padding:16px 18px 30px;overflow:auto;flex:1;font-size:13.5px;line-height:1.9;color:#2b3646}
+  .side-body h3{font-size:15px;margin:0 0 10px;display:flex;gap:8px;align-items:center}
+  .side-body h3::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--brand)}
+  .side-body p{margin:0 0 12px}
+  .side-body .q{color:var(--red)}
+  .side-body .g{color:var(--green)}
+  .side-body .b{color:var(--blue)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:13px 14px;margin-bottom:12px}
+  .card h4{font-size:13px;margin:0 0 8px;display:flex;align-items:center;gap:6px}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .dot.green{background:var(--green)}.dot.red{background:var(--red)}.dot.blue{background:var(--blue)}.dot.amber{background:var(--amber)}
+  .praise .item{display:flex;gap:10px;background:#eaf6ef;border:1px solid #dceee2;border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.8;color:#2f6b48;margin-bottom:8px}
+  .praise .tag{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--green);background:#fff;border:1px solid #cfe7d7;border-radius:5px;padding:1px 6px;height:fit-content}
+  .problem{background:#fdf0ef;border:1px solid #f4d9d5;border-radius:10px;padding:11px 13px;font-size:12.5px;line-height:1.85;color:#5c3a38}
+  .ex{display:block;background:#fff;border:1px solid #f2e2e0;border-radius:8px;padding:8px 11px;margin-top:8px;color:#c02828}
+  .seg{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden}
+  .seg-h{background:#fafbfc;padding:6px 12px;font-size:12px;color:#7a8594;border-bottom:1px solid var(--line)}
+  .seg-body{display:grid;grid-template-columns:1fr 190px;gap:12px;padding:10px 12px;font-size:12.5px;line-height:1.9}
+  .seg-body .orig{color:#2b3646}
+  .seg-body .note{color:#3b4757;border-left:0;padding-left:0}
+  table.walk{width:100%;border-collapse:collapse;font-size:12px}
+  table.walk th,table.walk td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;line-height:1.65}
+  table.walk th{background:#fafbfc;color:#3b4757;font-weight:600}
+  table.walk td.ok{color:var(--green);font-weight:700;white-space:nowrap}
+  table.walk td.warn{color:var(--amber);font-weight:700}
+  .gradebox{display:flex;gap:12px;align-items:center;margin-top:10px;background:#f8fafc;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+  .gradebox .g{font-size:22px;font-weight:800;color:var(--brand)}
+  .gradebox p{margin:0;font-size:12.5px;line-height:1.75;color:#3b4757}
+  .banner{margin-bottom:10px;font-size:12px;color:#8a6d3b;background:#fbf6ea;border:1px solid #eadfc4;border-radius:8px;padding:7px 12px}
+  .foot{flex:0 0 56px;background:#3a4553;display:flex;align-items:center;gap:2px;padding:0 10px;overflow-x:auto}
+  .tool{flex:0 0 auto;width:64px;display:flex;flex-direction:column;align-items:center;gap:2px;color:#dfe5ec;font-size:11px;padding:6px 0;background:none;border:0}
+  .tool svg{width:18px;height:18px}
+
+  .modal-mask{position:fixed;inset:0;background:rgba(31,39,51,.35);display:none;z-index:100;flex-direction:column}
+  .modal-mask.on{display:flex}
+  .modal-head{height:52px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--line)}
+  .modal-head b{font-size:15px}
+  .modal-head .close{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 13px;cursor:pointer;font-size:13px;color:var(--ink)}
+  .modal-mask iframe{flex:1;border:0;width:100%;background:#fff}
+
+  .thumb img{display:block;width:100%;height:auto}
+  .sheet-img{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
+  .sheet-img .img-col img{display:block;width:100%;border-radius:8px}
+  .sheet-img .img-col img+img{margin-top:12px}
+  .notes-col{font-size:13px;line-height:1.85;color:#2b3646}
+  .note-item{font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px;margin-bottom:14px}
+  .note-item .q{color:var(--red)}
+</style>
+
+
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><span class="brand-logo">✎</span>作文批改助手</div>
+    <button class="back">← 返回</button>
+    <button class="back">🕘 批改历史</button>
+    <span class="gap"></span>
+    <span class="docTitle">我的心爱之物 · 三件套批改</span>
+    <span class="gap"></span>
+    <button class="btn">保存修改</button>
+    <button class="btn primary">完成批改</button>
+    <button class="btn ghost">👁 预览</button>
+    <button class="btn ghost">⬇ 导出</button>
+    <button class="btn ghost">💬 发送微信</button>
+    <div class="avatar" style="width:30px;height:30px;border-radius:50%;background:#fbe3df;color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700">明</div>
+  </header>
+
+  <div class="main">
+    <aside class="thumbs">
+      <p class="lbl2">图片列表</p>
+      <div class="thumb"><img src="dian-essay-p1.png" alt="学生手写作文第1页"></div>
+      <div class="thumb"><img src="dian-essay-p2.png" alt="学生手写作文第2页"></div>
+    </aside>
+
+    <section class="canvas-wrap">
+      <div class="sheet sheet-img">
+        <div class="img-col">
+          <img src="dian-essay-p1.png" alt="学生手写作文第1页">
+          <img src="dian-essay-p2.png" alt="学生手写作文第2页">
+        </div>
+        <div class="notes-col">
+          <div class="note-item">第 1 段点题很干脆，一句话说清是什么、怎么来的。</div>
+          <div class="note-item">第 2 段是全文亮点，三个特点抓得准。</div>
+          <div class="note-item">第 3 段最动人，猫的动作和「说话」都写活了。</div>
+          <div class="note-item">第 4 段结尾「我可太爱它啦」偏口号，改成具体画面或小约定。</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <nav class="side-tabs" id="tabs">
+        <div class="side-tab active" data-k="internal">内部走查</div>
+        <div class="side-tab" data-k="parent">发给家长</div>
+        <div class="side-tab" data-k="coach">给孩子的批改</div>
+      </nav>
+      <div class="side-body" id="body"></div>
+    </aside>
+  </div>
+
+  <footer class="foot">
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg>上一张</button>
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/></svg>拖拽</button>
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 4l5 5-9 9H6v-5z"/></svg>画笔</button>
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16l4-8 4 8M6 13h4"/></svg>修正符号</button>
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>形状</button>
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5h14M12 5v14"/></svg>文字</button>
+    <button class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 19V7l12 10V5z"/></svg>橡皮擦</button>
+  </footer>
+</div>
+
+<script>
+  const data={
+    parent:`
+      <div class="card">
+        <h4><span class="dot green"></span>给家长的一段话</h4>
+        <p>您好！孩子的这篇《我的心爱之物》我读完了，写得很完整，是达标之上的作文。</p>
+        <p>我最喜欢她写电电吃鸡肉那段——<span class="q">「一打开保鲜袋就竖起耳朵，喵呜喵呜叫着，小短腿嗒嗒嗒冲过来」「脑袋埋进碗里咔嚓咔嚓吃得狼吞虎咽」</span>，用声音和动作把小猫的贪吃写得活灵活现。写样子的<span class="q">「聪明毛」「绿宝石眼睛」「小旗子尾巴」</span>也抓得准。</p>
+        <p>这次只有一个小地方想一起打磨：结尾<span class="q">「我可太爱它啦」</span>是好话，但前面已经用那么多细节把爱写出来了，这句话可以再具体一点，比如换成<span class="g">「我想和它拉个钩，以后每一个春夏秋冬都一起过」</span>。她的观察力和感情都不缺，只差最后一步把爱落到画面里。</p>
+      </div>`,
+    coach:`
+      <div class="card">
+        <h4><span class="dot green"></span>你写得好的地方</h4>
+        <div class="praise">
+          <div class="item"><span class="tag">好句</span><span>「聪明毛」「绿宝石眼睛」「小旗子尾巴」——三个特点把电电写得又准又可爱。</span></div>
+          <div class="item"><span class="tag">好句</span><span>「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」——声音一串接一串，像放电影。</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h4><span class="dot red"></span>最大的问题和怎么改</h4>
+        <div class="problem">结尾「我可太爱它啦」有点空。前面已经用细节把爱写出来了，结尾不用喊「爱」，用一个画面把爱收住。</div>
+        <span class="ex">现在，电电正窝在我脚边打呼噜，我觉得这就是最好的时光。</span>
+        <span class="ex">我想和它拉个钩，以后的每一个春夏秋冬，都要一起热热闹闹地过。</span>
+      </div>
+      <div class="card">
+        <h4><span class="dot blue"></span>逐段旁批</h4>
+        <div class="seg"><div class="seg-h">第 1 段</div><div class="seg-body"><div class="orig">我有一只心爱的小猫，叫电电……</div><div class="note">点题干脆，可补「得到它那一刻」的小画面。</div></div></div>
+        <div class="seg"><div class="seg-h">第 2 段</div><div class="seg-body"><div class="orig">耳朵尖上竖着一撮雪白的「聪明毛」……</div><div class="note">全文亮点，三个特点抓得准，不动。</div></div></div>
+        <div class="seg"><div class="seg-h">第 3 段</div><div class="seg-body"><div class="orig">上个月月考我没考好……</div><div class="note">最动人，猫的动作和「说话」都写活了。</div></div></div>
+        <div class="seg"><div class="seg-h">第 4 段</div><div class="seg-body"><div class="orig">我可太爱它啦！</div><div class="note">改成具体画面或小约定，把爱收住。</div></div></div>
+      </div>`,
+    internal:`
+      <div class="banner">🔒 教辅内部走查，勿转发给家长</div>
+      <div class="card">
+        <h4><span class="dot amber"></span>必查点走查表</h4>
+        <table class="walk">
+          <tr><th>A 写一件心爱之物</th><td class="ok">✅</td><td>真实小猫电电（动物类允许）</td></tr>
+          <tr><th>B 样子抓特点</th><td class="ok">✅</td><td>聪明毛／绿宝石眼／小旗子尾巴抓特点</td></tr>
+          <tr><th>C 来历或故事</th><td class="ok">✅</td><td>来历清楚；月考安慰事件具体</td></tr>
+          <tr><th>D 心爱缘由与喜爱</th><td class="ok">✅</td><td>缘由＝陪伴，有具体事例支撑</td></tr>
+          <tr><th>E 不要求大段抒情</th><td class="ok">✅</td><td>结尾一句点到即止</td></tr>
+          <tr><th>红线</th><td class="ok">✅</td><td>无套作、无跑题</td></tr>
+          <tr><th>字数硬指标</th><td class="ok">✅</td><td>约 435 字 ≥ 400 字</td></tr>
+        </table>
+        <div class="gradebox"><div class="g">优</div><p><b>主抓点：</b>结尾「我可太爱它啦」偏口号，换成画面或约定收尾。</p></div>
+      </div>`
+  };
+  const tabs=document.getElementById('tabs'), body=document.getElementById('body');
+  function show(k){
+    tabs.querySelectorAll('.side-tab').forEach(t=>t.classList.toggle('active',t.dataset.k===k));
+    body.innerHTML=data[k];
+  }
+  tabs.querySelectorAll('.side-tab').forEach(t=>t.addEventListener('click',()=>show(t.dataset.k)));
+  show('internal');
+
+  document.querySelectorAll('.btn.ghost')[0].addEventListener('click',()=>document.getElementById('previewModal').classList.add('on'));
+  document.addEventListener('click',e=>{ if(e.target && e.target.id==='closePreview') document.getElementById('previewModal').classList.remove('on'); });
+</script>
+
+
+<div class="modal-mask" id="previewModal">
+  <div class="modal-head"><b>家长版批改报告预览</b><button class="close" id="closePreview">关闭</button></div>
+  <iframe id="previewFrame" src="parent-export-result.html"></iframe>
+</div>
+</body>
+
+</html>
