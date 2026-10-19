@@ -130,9 +130,9 @@
 
     <aside class="side">
       <nav class="side-tabs" id="tabs">
-        <div class="side-tab active" data-k="internal">内部走查</div>
-        <div class="side-tab" data-k="parent">发给家长</div>
-        <div class="side-tab" data-k="coach">给孩子的批改</div>
+        <div class="side-tab active" data-k="review">总评</div>
+        <div class="side-tab" data-k="polish">全文润色</div>
+        <div class="side-tab" data-k="advice">跟进建议</div>
       </nav>
       <div class="side-body" id="body"></div>
     </aside>
@@ -151,48 +151,29 @@
 
 <script>
   const data={
-    parent:`
+    review:`
       <div class="card">
-        <h4><span class="dot green"></span>给家长的一段话</h4>
-        <p>您好！孩子的这篇《我的心爱之物》我读完了，写得很完整，是达标之上的作文。</p>
-        <p>我最喜欢她写电电吃鸡肉那段——<span class="q">「一打开保鲜袋就竖起耳朵，喵呜喵呜叫着，小短腿嗒嗒嗒冲过来」「脑袋埋进碗里咔嚓咔嚓吃得狼吞虎咽」</span>，用声音和动作把小猫的贪吃写得活灵活现。写样子的<span class="q">「聪明毛」「绿宝石眼睛」「小旗子尾巴」</span>也抓得准。</p>
-        <p>这次只有一个小地方想一起打磨：结尾<span class="q">「我可太爱它啦」</span>是好话，但前面已经用那么多细节把爱写出来了，这句话可以再具体一点，比如换成<span class="g">「我想和它拉个钩，以后每一个春夏秋冬都一起过」</span>。她的观察力和感情都不缺，只差最后一步把爱落到画面里。</p>
+        <h4><span class="dot green"></span>总评</h4>
+        <p>孩子这篇《我的心爱之物》写得很完整，把电电的样子、贪吃和陪伴写得又真又活，是达标之上的作文。</p>
+        <p>写样子时，她用<span class="q">「聪明毛」「绿宝石眼睛」「小旗子尾巴」</span>三个特点，一读就能在脑子里画出电电；写吃鸡肉时，用<span class="q">「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」</span>的声音和动作，把贪吃写得活灵活现。最打动人的是月考没考好那段——电电跳上床、蹭脸、搭手背，像在安慰她。</p>
+        <p>这次只建议一起打磨一处：结尾<span class="q">「我可太爱它啦」</span>有点空，可以换成具体画面或一个小约定，把爱收住。</p>
       </div>`,
-    coach:`
+    polish:`
       <div class="card">
-        <h4><span class="dot green"></span>你写得好的地方</h4>
-        <div class="praise">
-          <div class="item"><span class="tag">好句</span><span>「聪明毛」「绿宝石眼睛」「小旗子尾巴」——三个特点把电电写得又准又可爱。</span></div>
-          <div class="item"><span class="tag">好句</span><span>「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」——声音一串接一串，像放电影。</span></div>
-        </div>
-      </div>
-      <div class="card">
-        <h4><span class="dot red"></span>最大的问题和怎么改</h4>
-        <div class="problem">结尾「我可太爱它啦」有点空。前面已经用细节把爱写出来了，结尾不用喊「爱」，用一个画面把爱收住。</div>
-        <span class="ex">现在，电电正窝在我脚边打呼噜，我觉得这就是最好的时光。</span>
-        <span class="ex">我想和它拉个钩，以后的每一个春夏秋冬，都要一起热热闹闹地过。</span>
-      </div>
-      <div class="card">
-        <h4><span class="dot blue"></span>逐段旁批</h4>
-        <div class="seg"><div class="seg-h">第 1 段</div><div class="seg-body"><div class="orig">我有一只心爱的小猫，叫电电……</div><div class="note">点题干脆，可补「得到它那一刻」的小画面。</div></div></div>
-        <div class="seg"><div class="seg-h">第 2 段</div><div class="seg-body"><div class="orig">耳朵尖上竖着一撮雪白的「聪明毛」……</div><div class="note">全文亮点，三个特点抓得准，不动。</div></div></div>
-        <div class="seg"><div class="seg-h">第 3 段</div><div class="seg-body"><div class="orig">上个月月考我没考好……</div><div class="note">最动人，猫的动作和「说话」都写活了。</div></div></div>
-        <div class="seg"><div class="seg-h">第 4 段</div><div class="seg-body"><div class="orig">我可太爱它啦！</div><div class="note">改成具体画面或小约定，把爱收住。</div></div></div>
+        <h4><span class="dot blue"></span>全文润色</h4>
+        <p><b>最小改动版</b></p>
+        <p>我有一只心爱的小猫，叫电电，是妈妈怕我孤单无聊，特意送给我的小礼物。它就像一团软乎乎的小绒球，填满了我童年里好多温暖的时光。</p>
+        <p>电电长得特别讨人喜欢，耳朵尖上竖着一撮雪白的「聪明毛」；圆溜溜的绿眼睛像两颗透亮的绿宝石；毛茸茸的小尾巴像面小旗子。它还是个十足的吃货，最爱吃香喷喷的鸡肉。每次我刚打开装鸡肉的保鲜袋，它就会立刻竖起耳朵，「喵呜喵呜」叫着，迈着小短腿「嗒嗒嗒」地冲过来，小爪子扒着碗沿，脑袋埋进碗里「咔嚓咔嚓」吃得狼吞虎咽。</p>
+        <p>上个月月考我没考好，攥着皱巴巴的卷子垂头丧气地回了家。电电轻轻跳上床，用圆滚滚的小脑袋蹭蹭我的脸颊，软乎乎的小爪子搭在我的手上，还伸出粉嫩嫩的小舌头舔了舔我的手背，好像在说：「别难过啦，下次肯定能考好！」</p>
+        <p>电电不仅是一只小猫，更是我最贴心的小伙伴。现在，它正窝在我脚边打着呼噜，我想和它拉个钩，以后的每一个春夏秋冬，都要一起热热闹闹地过。</p>
       </div>`,
-    internal:`
-      <div class="banner">🔒 教辅内部走查，勿转发给家长</div>
+    advice:`
       <div class="card">
-        <h4><span class="dot amber"></span>必查点走查表</h4>
-        <table class="walk">
-          <tr><th>A 写一件心爱之物</th><td class="ok">✅</td><td>真实小猫电电（动物类允许）</td></tr>
-          <tr><th>B 样子抓特点</th><td class="ok">✅</td><td>聪明毛／绿宝石眼／小旗子尾巴抓特点</td></tr>
-          <tr><th>C 来历或故事</th><td class="ok">✅</td><td>来历清楚；月考安慰事件具体</td></tr>
-          <tr><th>D 心爱缘由与喜爱</th><td class="ok">✅</td><td>缘由＝陪伴，有具体事例支撑</td></tr>
-          <tr><th>E 不要求大段抒情</th><td class="ok">✅</td><td>结尾一句点到即止</td></tr>
-          <tr><th>红线</th><td class="ok">✅</td><td>无套作、无跑题</td></tr>
-          <tr><th>字数硬指标</th><td class="ok">✅</td><td>约 435 字 ≥ 400 字</td></tr>
-        </table>
-        <div class="gradebox"><div class="g">优</div><p><b>主抓点：</b>结尾「我可太爱它啦」偏口号，换成画面或约定收尾。</p></div>
+        <h4><span class="dot amber"></span>跟进建议</h4>
+        <p>孩子已经会用动作和声音把小猫写活，观察很细，接下来不需要大改，只做两件小事：</p>
+        <p>1. 把结尾「我可太爱它啦」换成具体画面或小约定，比如「现在，电电正窝在我脚边打呼噜」。</p>
+        <p>2. 下次写作文，可以再练习「先肯定亮点，再说一个最值得改的地方」的思路。</p>
+        <p>家长可以陪孩子聊一聊电电哪个瞬间最让她舍不得，让她把心里的感受落到具体画面上。</p>
       </div>`
   };
   const tabs=document.getElementById('tabs'), body=document.getElementById('body');
@@ -201,7 +182,7 @@
     body.innerHTML=data[k];
   }
   tabs.querySelectorAll('.side-tab').forEach(t=>t.addEventListener('click',()=>show(t.dataset.k)));
-  show('internal');
+  show('review');
 
   document.querySelectorAll('.btn.ghost')[0].addEventListener('click',()=>document.getElementById('previewModal').classList.add('on'));
   document.addEventListener('click',e=>{ if(e.target && e.target.id==='closePreview') document.getElementById('previewModal').classList.remove('on'); });

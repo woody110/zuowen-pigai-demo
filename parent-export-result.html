@@ -8,7 +8,7 @@
   :root{--green:#1e7a3c;--green-bg:#eef7f0;--red:#c02828;--red-bg:#fdf3f2;--blue:#1565c0;--blue-bg:#eef4fd;--amber:#a85a00;--amber-bg:#fbf6ea;--ink:#333;--ink2:#666;--line:#e5e7eb}
   *{box-sizing:border-box}
   body{margin:0;background:#eef0f3;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);font-size:14px}
-  .page{max-width:820px;margin:24px auto;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.07);overflow:hidden}
+  .page{position:relative;max-width:820px;margin:24px auto;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.07);overflow:hidden}
   .head{text-align:center;padding:28px 32px 6px}
   .head h1{font-size:24px;margin:0 0 6px;font-weight:700}
   .head .meta{color:#9aa0a8;font-size:12.5px}
@@ -50,10 +50,20 @@
   .appendix .notes{display:flex;flex-direction:column;gap:8px;margin-top:14px}
   .appendix .note{font-size:13px;line-height:1.85;color:#2b3646;font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px}
   .foot{text-align:center;color:#c0c4ca;font-size:11px;padding:0 32px 26px}
+
+  .grade-box{display:flex;align-items:center;gap:12px;background:#fbf6ea;border:1px solid #eadfc4;border-radius:12px;padding:14px 16px;margin:0 0 18px}
+  .grade-box .lab{font-size:13px;font-weight:700;color:#8a6d3b}
+  .grade-box .val{font-size:28px;font-weight:800;color:#a85a00}
+  .grade-box .note{font-size:13px;line-height:1.8;color:#6b5a3a}
+
+  .grade-badge{position:absolute;top:20px;right:24px;background:#fbf6ea;border:1px solid #eadfc4;border-radius:10px;padding:6px 12px;color:#a85a00;font-weight:700;font-size:14px}
 </style>
+
+
 </head>
 <body>
 <div class="page">
+  <div class="grade-badge">优</div>
   <div class="head">
     <h1>我的心爱之物</h1>
     <div class="meta">家长版批改报告　|　五年级上册 · 第一单元　|　学生：黄芷曈</div>
