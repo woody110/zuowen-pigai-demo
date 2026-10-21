@@ -77,15 +77,46 @@
   .modal-head b{font-size:15px}
   .modal-head .close{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 13px;cursor:pointer;font-size:13px;color:var(--ink)}
   .modal-mask iframe{flex:1;border:0;width:100%;background:#fff}
+  .modal-panel.wecom{width:460px}
+  .modal-panel .modal-body .row{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:14px}
+  .modal-panel .modal-body .lbl{color:var(--ink2);width:70px;flex:0 0 auto}
+  .modal-panel .modal-body .fmt{display:flex;gap:16px}
+  .modal-panel .modal-body .fmt label{display:flex;align-items:center;gap:5px;cursor:pointer;color:var(--ink)}
+  .modal-panel .modal-body .tip{color:var(--ink2);font-size:12px;margin:0}
+  .modal-panel .modal-body .warn{color:var(--brand);font-weight:700;margin:0 0 8px}
+  .modal-panel .modal-body .msg-row{align-items:flex-start}
+  .modal-panel .modal-body .msg-row .lbl{padding-top:6px}
+  .modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;align-items:center}
+  .demo-switch{margin-left:auto;font-size:12px;color:#9aa5b1}
+  .demo-switch a{color:var(--brand);cursor:pointer;margin:0 3px}
+  .demo-switch a.on{font-weight:700;text-decoration:underline}
+  .toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:rgba(31,39,51,.9);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;z-index:110;display:none}
 
   .thumb img{display:block;width:100%;height:auto}
   .sheet-img{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
   .sheet-img .img-col img{display:block;width:100%;border-radius:8px}
   .sheet-img .img-col img+img{margin-top:12px}
+  .annot-wrap{position:relative;display:block}
+  .annot-wrap+.annot-wrap{margin-top:12px}
+  .annot-wrap img{display:block;width:100%;border-radius:8px}
+  .annot-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   .notes-col{font-size:13px;line-height:1.85;color:#2b3646}
   .note-item{font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px;margin-bottom:14px}
   .note-item .q{color:var(--red)}
+
+  .modal-panel{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.2);width:640px;max-width:90vw;max-height:82vh;display:flex;flex-direction:column;overflow:hidden}
+  .modal-body{flex:1;overflow:auto;padding:16px 20px;background:#fff}
+  .modal-body textarea{width:100%;border:1px solid #dfe3e8;border-radius:8px;padding:10px;font-size:13px;line-height:1.7;color:#2b3646;resize:vertical;font-family:inherit;min-height:120px}
+  .modal-mask.center{align-items:center;justify-content:center}
+  .mode-panel{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.2);width:470px;max-width:90vw;display:flex;flex-direction:column;overflow:hidden}
+  .mode-opts{display:flex;gap:14px;padding:22px 24px 24px}
+  .mode-opt{flex:1;border:1px solid var(--line);border-radius:11px;padding:22px 14px;cursor:pointer;background:#fff;text-align:center;transition:border-color .15s,background .15s}
+  .mode-opt:hover{border-color:var(--brand);background:#fff7f5}
+  .mode-opt .ic{font-size:26px;display:block;margin-bottom:9px}
+  .mode-opt .t{font-size:14px;font-weight:700;color:var(--ink);display:block}
+  .mode-opt .d{font-size:12px;color:var(--ink2);margin-top:6px;line-height:1.55;display:block}
 </style>
+
 
 
 </head>
@@ -102,7 +133,7 @@
     <button class="btn primary">完成批改</button>
     <button class="btn ghost">👁 预览</button>
     <button class="btn ghost">⬇ 导出</button>
-    <button class="btn ghost">💬 发送微信</button>
+    <button class="btn ghost" id="wecomBtn">💬 发送微信</button>
     <div class="avatar" style="width:30px;height:30px;border-radius:50%;background:#fbe3df;color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700">明</div>
   </header>
 
@@ -116,14 +147,36 @@
     <section class="canvas-wrap">
       <div class="sheet sheet-img">
         <div class="img-col">
-          <img src="dian-essay-p1.png" alt="学生手写作文第1页">
-          <img src="dian-essay-p2.png" alt="学生手写作文第2页">
+          <div class="annot-wrap">
+            <img src="dian-essay-p1.png" alt="学生手写作文第1页">
+            <svg class="annot-svg" viewBox="0 0 847 1130" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 165 300 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0" stroke="#2e6be6" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M 150 440 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M 150 590 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="600" cy="652" rx="20" ry="23" stroke="#e94a3f" stroke-width="4" fill="none"/>
+              <text x="600" y="616" font-size="30" fill="#e94a3f" text-anchor="middle" font-weight="700">咽</text>
+              <text x="620" y="240" font-size="22" fill="#e94a3f">① 开头点题好</text>
+              <text x="620" y="470" font-size="22" fill="#e94a3f">② 比喻写活样子</text>
+            </svg>
+          </div>
+          <div class="annot-wrap">
+            <img src="dian-essay-p2.png" alt="学生手写作文第2页">
+            <svg class="annot-svg" viewBox="0 0 847 1130" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M 150 320 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="390" cy="500" rx="150" ry="38" stroke="#e94a3f" stroke-width="4" fill="none"/>
+              <line x1="280" y1="500" x2="520" y2="500" stroke="#e94a3f" stroke-width="4" stroke-linecap="round"/>
+              <path d="M 300 575 L 322 548 L 344 575" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="366" y="565" font-size="32" fill="#e94a3f">换成具体画面</text>
+              <text x="620" y="280" font-size="22" fill="#e94a3f">③ 陪伴写爱动人</text>
+              <text x="620" y="530" font-size="22" fill="#e94a3f">④ 结尾改画面</text>
+            </svg>
+          </div>
         </div>
         <div class="notes-col">
-          <div class="note-item">第 1 段点题很干脆，一句话说清是什么、怎么来的。</div>
-          <div class="note-item">第 2 段是全文亮点，三个特点抓得准。</div>
-          <div class="note-item">第 3 段最动人，猫的动作和「说话」都写活了。</div>
-          <div class="note-item">第 4 段结尾「我可太爱它啦」偏口号，改成具体画面或小约定。</div>
+          <div class="note-item">第 1 段点题很干脆，一句话说清是什么、怎么来的。<span class="q">病句：</span>「填满了我童年里好多温暖的时光」——「填满」不能搭配「时光」，改为「温暖了我童年里好多的时光」。</div>
+          <div class="note-item">第 2 段是全文亮点，「聪明毛／绿宝石眼睛／小旗子尾巴」三个比喻抓得准。<span class="q">错别字：</span>「狼吞虎燕」应改为「狼吞虎咽」。</div>
+          <div class="note-item">第 3 段最动人，猫的动作和「说话」都写活了，好句直接留着。</div>
+          <div class="note-item">第 4 段结尾「我可太爱它啦」偏口号，删除这句，增补成具体画面或小约定。</div>
         </div>
       </div>
     </section>
@@ -133,6 +186,7 @@
         <div class="side-tab active" data-k="review">总评</div>
         <div class="side-tab" data-k="polish">全文润色</div>
         <div class="side-tab" data-k="advice">跟进建议</div>
+        <div class="side-tab" data-k="walk">教师复核</div>
       </nav>
       <div class="side-body" id="body"></div>
     </aside>
@@ -161,7 +215,6 @@
     polish:`
       <div class="card">
         <h4><span class="dot blue"></span>全文润色</h4>
-        <p><b>最小改动版</b></p>
         <p>我有一只心爱的小猫，叫电电，是妈妈怕我孤单无聊，特意送给我的小礼物。它就像一团软乎乎的小绒球，填满了我童年里好多温暖的时光。</p>
         <p>电电长得特别讨人喜欢，耳朵尖上竖着一撮雪白的「聪明毛」；圆溜溜的绿眼睛像两颗透亮的绿宝石；毛茸茸的小尾巴像面小旗子。它还是个十足的吃货，最爱吃香喷喷的鸡肉。每次我刚打开装鸡肉的保鲜袋，它就会立刻竖起耳朵，「喵呜喵呜」叫着，迈着小短腿「嗒嗒嗒」地冲过来，小爪子扒着碗沿，脑袋埋进碗里「咔嚓咔嚓」吃得狼吞虎咽。</p>
         <p>上个月月考我没考好，攥着皱巴巴的卷子垂头丧气地回了家。电电轻轻跳上床，用圆滚滚的小脑袋蹭蹭我的脸颊，软乎乎的小爪子搭在我的手上，还伸出粉嫩嫩的小舌头舔了舔我的手背，好像在说：「别难过啦，下次肯定能考好！」</p>
@@ -174,6 +227,21 @@
         <p>1. 把结尾「我可太爱它啦」换成具体画面或小约定，比如「现在，电电正窝在我脚边打呼噜」。</p>
         <p>2. 下次写作文，可以再练习「先肯定亮点，再说一个最值得改的地方」的思路。</p>
         <p>家长可以陪孩子聊一聊电电哪个瞬间最让她舍不得，让她把心里的感受落到具体画面上。</p>
+      </div>`,
+    walk:`
+      <div class="banner">🔒 教师复核 · 勿转发给家长</div>
+      <div class="card">
+        <h4><span class="dot amber"></span>必查点走查表</h4>
+        <table class="walk">
+          <tr><th>A 写一件心爱之物</th><td class="ok">✅</td><td>真实小猫电电（动物类允许）</td></tr>
+          <tr><th>B 样子抓特点</th><td class="ok">✅</td><td>聪明毛／绿宝石眼／小旗子尾巴抓特点</td></tr>
+          <tr><th>C 来历或故事</th><td class="ok">✅</td><td>来历清楚；月考安慰事件具体</td></tr>
+          <tr><th>D 心爱缘由与喜爱</th><td class="ok">✅</td><td>缘由＝陪伴，有具体事例支撑</td></tr>
+          <tr><th>E 不要求大段抒情</th><td class="ok">✅</td><td>结尾一句点到即止</td></tr>
+          <tr><th>红线</th><td class="ok">✅</td><td>无套作、无跑题</td></tr>
+          <tr><th>字数硬指标</th><td class="ok">✅</td><td>约 435 字 ≥ 400 字</td></tr>
+          <tr><th>基本功（单列）</th><td class="ok">2 项</td><td>错别字「狼吞虎燕」→「狼吞虎咽」；病句「填满…时光」→「温暖…时光」</td></tr>
+        </table>
       </div>`
   };
   const tabs=document.getElementById('tabs'), body=document.getElementById('body');
@@ -184,8 +252,40 @@
   tabs.querySelectorAll('.side-tab').forEach(t=>t.addEventListener('click',()=>show(t.dataset.k)));
   show('review');
 
-  document.querySelectorAll('.btn.ghost')[0].addEventListener('click',()=>document.getElementById('previewModal').classList.add('on'));
-  document.addEventListener('click',e=>{ if(e.target && e.target.id==='closePreview') document.getElementById('previewModal').classList.remove('on'); });
+  document.querySelectorAll('.btn.ghost')[0].addEventListener('click',()=>document.getElementById('modeModal').classList.add('on'));
+
+  let wecomScene='normal';
+  function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2000);}
+  function openWecom(){
+    const body=document.getElementById('wecomBody'), foot=document.getElementById('wecomFoot'), mask=document.getElementById('wecomModal');
+    if(wecomScene==='noContact'){
+      body.innerHTML='<p class="warn">无法找到联系人</p><p style="margin:0;color:#5c6b7a">未查到该学生对应的家长微信，无法发送。</p>';
+      foot.innerHTML='<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxLocal">导出到本地</button>';
+    }else{
+      body.innerHTML='<div class="row"><span class="lbl">发送对象</span><span>黄芷曈妈妈（微信 · 黄芷曈妈妈）</span></div><div class="row"><span class="lbl">格式</span><span class="fmt"><label><input type="radio" name="fmt" value="pdf" checked> PDF</label><label><input type="radio" name="fmt" value="word"> Word</label></span></div><div class="row msg-row"><span class="lbl">发送话术</span><textarea id="wecomMsg">您好！孩子的这篇《我的心爱之物》我读完了，写得很完整，是达标之上的作文。我最喜欢她写电电吃鸡肉那段——「一打开保鲜袋就竖起耳朵，喵呜喵呜叫着，小短腿嗒嗒嗒冲过来」，用声音和动作把小猫的贪吃写得活灵活现。这次只想一起打磨一处：结尾「我可太爱它啦」可以再具体一点，比如换成「我想和它拉个钩，以后每一个春夏秋冬都一起过」。改完发我，我再读一遍。</textarea></div><p class="tip">将发送批改结果（PDF / Word）+ 话术给家长</p>';
+      foot.innerHTML='<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxSend">发送</button>';
+    }
+    foot.insertAdjacentHTML('beforeend','<span class="demo-switch">演示：<a data-scene="normal">正常</a><a data-scene="noContact">找不到联系人</a><a data-scene="fail">发送失败</a></span>');
+    [...foot.querySelectorAll('.demo-switch a')].forEach(a=>a.classList.toggle('on',a.dataset.scene===wecomScene));
+    mask.classList.add('on');
+    document.getElementById('wxCancel')?.addEventListener('click',()=>mask.classList.remove('on'));
+    document.getElementById('wxLocal')?.addEventListener('click',()=>{mask.classList.remove('on');showToast('已导出到本地');});
+    document.getElementById('wxSend')?.addEventListener('click',()=>{mask.classList.remove('on');showToast(wecomScene==='fail'?'发送失败':'发送成功');});
+    [...foot.querySelectorAll('.demo-switch a')].forEach(a=>a.addEventListener('click',()=>{wecomScene=a.dataset.scene;openWecom();}));
+  }
+  document.getElementById('wecomBtn').addEventListener('click',openWecom);
+  document.addEventListener('click',e=>{
+    const opt=e.target.closest('.mode-opt');
+    if(opt){
+      document.getElementById('previewFrame').src='parent-export-result.html?mode='+opt.dataset.mode;
+      document.getElementById('modeModal').classList.remove('on');
+      document.getElementById('previewModal').classList.add('on');
+      return;
+    }
+    if(e.target && e.target.id==='closeMode') document.getElementById('modeModal').classList.remove('on');
+    if(e.target && e.target.id==='closePreview') document.getElementById('previewModal').classList.remove('on');
+    if(e.target && e.target.id==='closeWecom') document.getElementById('wecomModal').classList.remove('on');
+  });
 </script>
 
 
@@ -193,6 +293,33 @@
   <div class="modal-head"><b>家长版批改报告预览</b><button class="close" id="closePreview">关闭</button></div>
   <iframe id="previewFrame" src="parent-export-result.html"></iframe>
 </div>
+
+<div class="modal-mask center" id="modeModal">
+  <div class="mode-panel">
+    <div class="modal-head"><b>选择逐段批注的呈现方式</b><button class="close" id="closeMode">关闭</button></div>
+    <div class="mode-opts">
+      <div class="mode-opt" data-mode="image">
+        <span class="ic">🖼️</span>
+        <span class="t">学生原图</span>
+        <span class="d">在学生手写原图上呈现逐段批注</span>
+      </div>
+      <div class="mode-opt" data-mode="text">
+        <span class="ic">📝</span>
+        <span class="t">文字版作文</span>
+        <span class="d">在文字版作文上呈现逐段批注</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="wecomModal">
+  <div class="modal-panel wecom">
+    <div class="modal-head"><b>发送微信</b><button class="close" id="closeWecom">关闭</button></div>
+    <div class="modal-body" id="wecomBody"></div>
+    <div class="modal-foot" id="wecomFoot"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
 </body>
 
 </html>
