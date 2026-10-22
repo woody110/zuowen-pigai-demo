@@ -3,190 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>家长版批改报告 · 我的心爱之物</title>
+<title>家长版批改报告</title>
 <style>
-  :root{--green:#1e7a3c;--green-bg:#eef7f0;--red:#c02828;--red-bg:#fdf3f2;--blue:#1565c0;--blue-bg:#eef4fd;--amber:#a85a00;--amber-bg:#fbf6ea;--ink:#333;--ink2:#666;--line:#e5e7eb}
   *{box-sizing:border-box}
-  body{margin:0;background:#eef0f3;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);font-size:14px}
-  .page{position:relative;max-width:820px;margin:24px auto;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.07);overflow:hidden}
-  .head{text-align:center;padding:28px 32px 6px}
-  .head h1{font-size:24px;margin:0 0 6px;font-weight:700}
-  .head .meta{color:#9aa0a8;font-size:12.5px}
-  .body{padding:20px 32px 32px}
-  .lead{margin:18px 0 20px;background:linear-gradient(135deg,#fff7f4,#fffdf9);border:1px solid #f6e3dc;border-radius:12px;padding:16px 20px;font-size:14.5px;line-height:1.95}
-  .lead .g{color:var(--green);font-weight:600}
-  .lead .r{color:var(--red);font-weight:600}
-  .sec{margin:20px 0}
-  .sec .h{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:700;margin:0 0 12px}
-  .sec .h .n{width:24px;height:24px;border-radius:7px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
-  .n.green{background:var(--green)} .n.red{background:var(--red)} .n.blue{background:var(--blue)} .n.amber{background:var(--amber)} .n.gray{background:#9aa5b1}
-  .chips{display:flex;flex-direction:column;gap:9px}
-  .chip{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff}
-  .chip .name{font-size:13.5px;font-weight:600;color:#3b4757}
-  .chip .desc{display:block;font-size:11.5px;color:#7a8594;font-weight:400;margin-top:2px}
-  .badge{font-size:11px;font-weight:700;border-radius:99px;padding:3px 9px}
-  .badge.green{color:var(--green);background:var(--green-bg)}
-  .badge.amber{color:var(--amber);background:var(--amber-bg)}
-  .praise .item{display:flex;gap:12px;margin:0 0 10px;background:var(--green-bg);border:1px solid #dceee2;border-radius:11px;padding:12px 16px;font-size:13.5px;line-height:1.9}
-  .praise .tag{flex:0 0 auto;font-size:12px;font-weight:700;color:var(--green);background:#fff;border:1px solid #cfe7d7;border-radius:6px;padding:2px 8px;height:fit-content}
-  .problem{background:var(--red-bg);border:1px solid #f4d9d5;border-radius:11px;padding:15px 18px;font-size:13.5px;line-height:1.9}
-  .problem .t{font-weight:700;color:var(--red);margin-bottom:4px}
-  .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-  .compare .box{border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.9}
-  .compare .before{background:#fff;border:1px solid #eee}
-  .compare .after{background:#fffdf8;border:1px solid #f0e6d0}
-  .compare .lbl{font-size:12px;font-weight:700;margin-bottom:5px;display:block}
-  .compare .before .lbl{color:#9aa0a8}
-  .compare .after .lbl{color:var(--amber)}
-  .compare .after .add{color:var(--green)}
-  .method{background:var(--blue-bg);border:1px solid #d9e6f7;border-radius:11px;padding:15px 18px;font-size:13.5px;line-height:1.95}
-  .method .name{font-weight:700;color:var(--blue)}
-  .family .item{margin:0 0 10px;font-size:13.5px;line-height:1.9;padding-left:16px;position:relative}
-  .family .item::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
-  .closing{text-align:center;background:var(--amber-bg);border:1px solid #eadfc4;border-radius:12px;padding:18px 22px;font-size:13.5px;line-height:2;color:#6b5a3a}
-  .appendix{margin-top:22px;border-top:1px dashed var(--line);padding-top:20px}
-  .appendix .imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .appendix img{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:#fff}
-  .appendix .notes{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-  .appendix .note{font-size:13px;line-height:1.85;color:#2b3646;font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px}
-  .foot{text-align:center;color:#c0c4ca;font-size:11px;padding:0 32px 26px}
-
-  .grade-box{display:flex;align-items:center;gap:12px;background:#fbf6ea;border:1px solid #eadfc4;border-radius:12px;padding:14px 16px;margin:0 0 18px}
-  .grade-box .lab{font-size:13px;font-weight:700;color:#8a6d3b}
-  .grade-box .val{font-size:28px;font-weight:800;color:#a85a00}
-  .grade-box .note{font-size:13px;line-height:1.8;color:#6b5a3a}
-
-  .grade-badge{position:absolute;top:20px;right:24px;background:#fbf6ea;border:1px solid #eadfc4;border-radius:10px;padding:6px 12px;color:#a85a00;font-weight:700;font-size:14px}
-  .mode-toggle{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin:0 0 14px}
-  .mode-toggle span{padding:7px 14px;font-size:13px;color:var(--ink2);cursor:pointer;background:#fff}
-  .mode-toggle span.active{background:#fdeee9;color:var(--red);font-weight:700}
-  .text-annot p{margin:0 0 14px;font-size:15px;line-height:2.3;text-indent:2em;color:#243040}
-  .text-annot .good{color:var(--red);text-decoration:underline wavy var(--red);text-underline-offset:5px}
-  .text-annot .fix{color:var(--red);text-decoration:line-through}
-  .text-annot .add{color:var(--red);font-weight:700}
-  .annot-wrap{position:relative;display:block}
-  .annot-wrap+.annot-wrap{margin-top:12px}
-  .annot-wrap img{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:#fff}
-  .annot-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-  .split{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:14px}
-  .essay p{margin:0 0 14px;font-size:15px;line-height:2.3;text-indent:2em;color:#243040}
-  .essay .good{color:var(--red);text-decoration:underline wavy var(--red);text-underline-offset:5px}
-  .essay .fix{color:var(--red);text-decoration:line-through}
-  .essay .add{color:var(--red);font-weight:700}
-  .essay .bad{color:var(--blue);text-decoration:underline wavy var(--blue);text-underline-offset:5px}
-  .notes-right .note{font-size:13px;line-height:1.85;color:#2b3646;font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px;margin-bottom:14px}
-  .original-annot{margin-top:20px;border-top:1px dashed var(--line);padding-top:18px}
-  .original-annot .sub-title{font-size:14px;font-weight:700;color:#3b4757;margin:0 0 12px}
-  .original-annot .imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  html,body{margin:0;padding:0;background:#eef0f3}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  .wrap{display:flex;justify-content:center;padding:0 0 24px}
+  .wrap img{display:block;width:100%;max-width:1000px;height:auto;background:#fff}
 </style>
-
-
 </head>
 <body>
-<div class="page">
-  <div class="grade-badge">优</div>
-  <div class="head">
-    <h1>我的心爱之物</h1>
-    <div class="meta">家长版批改报告　|　五年级上册 · 第一单元　|　学生：黄芷曈</div>
-  </div>
-
-  <div class="body">
-    <div class="lead">
-      孩子这篇《我的心爱之物》写得很完整，把电电的样子、贪吃和陪伴写得又真又活，已经达到了第一单元的要求，她最会用动作和声音把小猫写活。这次最值得一起打磨的只有一处：<span class="r">结尾「我可太爱它啦」有点空</span>，可以把它换成<span class="g">一个具体画面或小约定</span>，让感情在最后一个动作里收住。
-    </div>
-
-
-    <div class="sec">
-      <div class="h"><span class="n green">1</span>写得好的地方</div>
-      <div class="praise">
-        <div class="item"><span class="tag">好句</span><span>「聪明毛」「绿宝石眼睛」「小旗子尾巴」——三个特点把电电写得又准又可爱。</span></div>
-        <div class="item"><span class="tag">好句</span><span>「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」——声音一串接一串，像放电影。</span></div>
-        <div class="item"><span class="tag">好句</span><span>「别难过啦，下次肯定能考好！」——小猫的「话」其实是孩子心里的安慰，很动人。</span></div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="h"><span class="n red">2</span>最大的问题和怎么改</div>
-      <div class="problem">
-        <div class="t">结尾「我可太爱它啦」有点空</div>
-        前面已经用细节把爱写出来了，结尾不用喊「爱」，用一个画面把爱收住。
-        <div class="compare">
-          <div class="box before"><span class="lbl">改前</span>电电不仅是一只小猫，更是我最贴心的小伙伴……我可太爱它啦！</div>
-          <div class="box after"><span class="lbl">改后</span>现在，电电正窝在我脚边打着呼噜。<span class="add">我想和它拉个钩，以后的每一个春夏秋冬，都要一起热热闹闹地过。</span></div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-    <div class="sec">
-      <div class="h"><span class="n amber">3</span>逐段旁批</div>
-      <div class="mode-toggle" id="annotMode">
-        <span class="active" data-mode="text">文字版作文</span>
-        <span data-mode="image">学生原图</span>
-      </div>
-      <div class="split">
-        <div class="annot-left">
-          <div class="essay" id="annotTextView">
-          <p>我有一只心爱的小猫，叫电电，是妈妈怕我孤单无聊，特意送给我的小礼物。它就像一团软乎乎的小绒球，<span class="bad">填满了我童年里好多温暖的时光</span>。</p>
-          <p>电电长得特别讨人喜欢，耳朵尖上竖着一撮雪白的<span class="good">「聪明毛」</span>；圆溜溜的绿眼睛像两颗透亮的<span class="good">绿宝石</span>；毛茸茸的小尾巴像面<span class="good">小旗子</span>。它还是个十足的吃货，最爱吃香喷喷的鸡肉。每次我刚打开装鸡肉的保鲜袋，它就会立刻竖起耳朵，<span class="good">「喵呜喵呜」</span>叫着，迈着小短腿<span class="good">「嗒嗒嗒」</span>地冲过来，小爪子扒着碗沿，脑袋埋进碗里<span class="good">「咔嚓咔嚓」</span>吃得<span class="fix">狼吞虎燕</span><span class="add">狼吞虎咽</span>。</p>
-          <p>上个月月考我没考好，攥着皱巴巴的卷子垂头丧气地回了家。电电轻轻跳上床，用圆滚滚的小脑袋蹭蹭我的脸颊，软乎乎的小爪子搭在我的手上，还伸出粉嫩嫩的小舌头舔了舔我的手背，好像在说：「别难过啦，下次肯定能考好！」</p>
-          <p>电电不仅是一只小猫，更是我最贴心的小伙伴，它用小小的身影，陪伴我走过开心和难过的每一刻，<span class="fix">我可太爱它啦！</span><span class="add">现在，电电正窝在我脚边打着呼噜，我想和它拉个钩，以后的每一个春夏秋冬，都要一起热热闹闹地过。</span></p>
-          </div>
-          <div class="annot-imgs" id="annotImageView" style="display:none">
-            <div class="annot-wrap">
-              <img src="dian-essay-p1.png" alt="学生手写作文第1页">
-              <svg class="annot-svg" viewBox="0 0 847 1130" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M 165 300 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0 q 8 -11 16 0 q 8 11 16 0" stroke="#2e6be6" stroke-width="4" fill="none" stroke-linecap="round"/>
-                <path d="M 150 430 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round"/>
-                <path d="M 150 585 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round"/>
-                <ellipse cx="600" cy="652" rx="20" ry="23" stroke="#e94a3f" stroke-width="4" fill="none"/>
-                <text x="600" y="616" font-size="30" fill="#e94a3f" text-anchor="middle" font-weight="700">咽</text>
-                <text x="620" y="240" font-size="22" fill="#e94a3f">① 开头点题好</text>
-                <text x="620" y="470" font-size="22" fill="#e94a3f">② 比喻写活样子</text>
-              </svg>
-            </div>
-            <div class="annot-wrap">
-              <img src="dian-essay-p2.png" alt="学生手写作文第2页">
-              <svg class="annot-svg" viewBox="0 0 847 1130" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M 150 320 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0 q 9 -13 18 0 q 9 13 18 0" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round"/>
-                <ellipse cx="390" cy="500" rx="150" ry="38" stroke="#e94a3f" stroke-width="4" fill="none"/>
-                <line x1="280" y1="500" x2="520" y2="500" stroke="#e94a3f" stroke-width="4" stroke-linecap="round"/>
-                <path d="M 300 575 L 322 548 L 344 575" stroke="#e94a3f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                <text x="366" y="565" font-size="32" fill="#e94a3f">换成具体画面</text>
-                <text x="620" y="280" font-size="22" fill="#e94a3f">③ 陪伴写爱动人</text>
-                <text x="620" y="530" font-size="22" fill="#e94a3f">④ 结尾改画面</text>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="notes-right">
-          <div class="note">第 1 段负责把话题引出来，一句话交代小猫叫什么、怎么来的。「妈妈怕我孤单无聊，特意送给我的小礼物」把来历和妈妈的心意都点到了。病句：「填满了我童年里好多温暖的时光」——「填满」不能搭配「时光」，改成「温暖了我童年里好多的时光」。</div>
-          <div class="note">第 2 段是全文最亮的部分，三个比喻写活样子，三个声音加一连串动作写贪吃，像放电影。错别字：「狼吞虎燕」应改为「狼吞虎咽」。</div>
-          <div class="note">第 3 段写了一件真事，用小猫的陪伴写爱。蹭脸、搭手背、舔手背，「别难过啦」其实是孩子心里的安慰，很动人。</div>
-          <div class="note">第 4 段负责收尾点题。「我最贴心的小伙伴」点得好，但「我可太爱它啦」有点空，删除这句，增补成小猫此刻正窝在脚边打呼噜的画面。</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">少年得到 · 作文批改</div>
+<div class="wrap">
+  <img id="reportImg" src="report-text.png" alt="家长版批改报告（文字版）">
 </div>
 <script>
-  const annotMode=document.getElementById('annotMode');
-  const textView=document.getElementById('annotTextView');
-  const imageView=document.getElementById('annotImageView');
-  function setMode(mode){
-    annotMode.querySelectorAll('span').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));
-    textView.style.display = mode==='image' ? 'none' : '';
-    imageView.style.display = mode==='image' ? '' : 'none';
+  var mode = new URLSearchParams(location.search).get('mode');
+  var img = document.getElementById('reportImg');
+  if (mode === 'image') {
+    img.src = 'report-image.png';
+    img.alt = '家长版批改报告（学生原图版）';
+  } else {
+    img.src = 'report-text.png';
+    img.alt = '家长版批改报告（文字版）';
   }
-  annotMode.addEventListener('click',e=>{
-    const s=e.target.closest('span'); if(!s) return;
-    setMode(s.dataset.mode);
-  });
-  const urlMode=new URLSearchParams(location.search).get('mode');
-  if(urlMode==='image'||urlMode==='text') setMode(urlMode);
 </script>
 </body>
 </html>
