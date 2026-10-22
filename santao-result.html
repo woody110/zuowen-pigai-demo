@@ -185,8 +185,7 @@
       <nav class="side-tabs" id="tabs">
         <div class="side-tab active" data-k="review">总评</div>
         <div class="side-tab" data-k="polish">全文润色</div>
-        <div class="side-tab" data-k="advice">跟进建议</div>
-        <div class="side-tab" data-k="walk">教辅复核</div>
+                <div class="side-tab" data-k="walk">教辅复核</div>
       </nav>
       <div class="side-body" id="body"></div>
     </aside>
@@ -218,12 +217,6 @@
         <p>上个月月考我没考好，攥着皱巴巴的卷子垂头丧气地回了家。电电像是看出了什么，轻轻跳上床，用圆滚滚的小脑袋蹭蹭我的脸颊，软乎乎的小爪子搭在我的手上，还伸出粉嫩嫩的小舌头舔了舔我的手背，好像在说：「别难过啦，下次肯定能考好！」</p>
         <p>电电不仅是一只小猫，更是我最贴心的小伙伴。现在，它正窝在我脚边打着呼噜，小肚子一起一伏。我想和它拉个钩，以后的每一个春夏秋冬，都要一起热热闹闹地过。</p>
       </div>`,
-    advice:`
-      <div class="card">
-                <p>这篇《我的心爱之物》我读完印象最深的是那三个比喻——「聪明毛」「绿宝石眼睛」「小旗子尾巴」，孩子看自己的猫是带着感情的。写贪吃那一段尤其好，「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」一串声音加动作，像放电影一样，猫的样子、贪吃、陪伴都写到了，约 435 字稳稳过线，是篇很漂亮的作文。</p>
-        <p>这次只想一起打磨一处：结尾「我可太爱它啦」有点喊口号，前面其实已经用细节把爱写够了，可以把结尾换成一个具体的画面，比如「现在它正窝在我脚边打呼噜」，让感情在最后一个动作里收住。</p>
-        <p>孩子的观察和感情都不缺，这一处一改就更完整了。改完发我，我再读一遍。</p>
-      </div>`,
     walk:`
       <div class="banner">🔒 教辅复核 · 勿转发给家长</div>
       <div class="gradebox"><span class="g">优秀</span></div>
@@ -245,6 +238,12 @@
       <div class="card">
         <h4><span class="dot amber"></span>主抓点</h4>
         <p>结尾情感口号化——把「我可太爱它啦」换成一个具体画面，让喜爱回到具体内容上收尾。</p>
+      </div>
+      <div class="card">
+        <h4><span class="dot amber"></span>跟进建议</h4>
+        <p>这篇《我的心爱之物》我读完印象最深的是那三个比喻——「聪明毛」「绿宝石眼睛」「小旗子尾巴」，孩子看自己的猫是带着感情的。写贪吃那一段尤其好，「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」一串声音加动作，像放电影一样，猫的样子、贪吃、陪伴都写到了，约 435 字稳稳过线，是篇很漂亮的作文。</p>
+        <p>这次只想一起打磨一处：结尾「我可太爱它啦」有点喊口号，前面其实已经用细节把爱写够了，可以把结尾换成一个具体的画面，比如「现在它正窝在我脚边打呼噜」，让感情在最后一个动作里收住。</p>
+        <p>孩子的观察和感情都不缺，这一处一改就更完整了。改完发我，我再读一遍。</p>
       </div>`
   };
   const tabs=document.getElementById('tabs'), body=document.getElementById('body');
@@ -268,7 +267,7 @@
       body.innerHTML='<p class="warn">无法找到联系人</p><p style="margin:0;color:#5c6b7a">未查到该学生对应的家长微信，无法发送。</p>';
       foot.innerHTML='<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxLocal">导出到本地</button>';
     }else{
-      body.innerHTML='<div class="row"><span class="lbl">发送对象</span><span>黄芷曈妈妈（微信 · 黄芷曈妈妈）</span></div><div class="row"><span class="lbl">格式</span><span class="fmt"><label><input type="radio" name="fmt" value="pdf" checked> PDF</label><label><input type="radio" name="fmt" value="word"> Word</label></span></div><div class="row msg-row"><span class="lbl">发送话术</span><textarea id="wecomMsg">孩子的《我的心爱之物》写得很好，三个比喻「聪明毛」「绿宝石眼睛」「小旗子尾巴」和写贪吃时的声音动作特别生动。这次只想打磨一处：结尾「我可太爱它啦」有点喊口号，可以换成具体画面，比如「现在它正窝在我脚边打呼噜」。改完发我，我再读一遍。</textarea></div><p class="tip">将发送批改结果（PDF / Word）+ 话术给家长</p>';
+      body.innerHTML='<div class="row"><span class="lbl">发送对象</span><span>黄芷曈妈妈（微信 · 黄芷曈妈妈）</span></div><div class="row"><span class="lbl">格式</span><span class="fmt"><label><input type="radio" name="fmt" value="pdf" checked> PDF</label><label><input type="radio" name="fmt" value="word"> Word</label></span></div><div class="row msg-row"><span class="lbl">发送话术</span><textarea id="wecomMsg">这篇《我的心爱之物》我读完印象最深的是那三个比喻——「聪明毛」「绿宝石眼睛」「小旗子尾巴」，孩子看自己的猫是带着感情的。写贪吃那一段尤其好，「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」一串声音加动作，像放电影一样，猫的样子、贪吃、陪伴都写到了，约 435 字稳稳过线，是篇很漂亮的作文。这次只想一起打磨一处：结尾「我可太爱它啦」有点喊口号，前面其实已经用细节把爱写够了，可以把结尾换成一个具体的画面，比如「现在它正窝在我脚边打呼噜」，让感情在最后一个动作里收住。孩子的观察和感情都不缺，这一处一改就更完整了。改完发我，我再读一遍。</textarea></div><p class="tip">将发送批改结果（PDF / Word）+ 话术给家长</p>';
       foot.innerHTML='<button class="btn" id="wxCancel">取消</button><button class="btn primary" id="wxSend">发送</button>';
     }
     foot.insertAdjacentHTML('beforeend','<span class="demo-switch">演示：<a data-scene="normal">正常</a><a data-scene="noContact">找不到联系人</a><a data-scene="fail">发送失败</a></span>');
