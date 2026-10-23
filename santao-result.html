@@ -103,6 +103,9 @@
   .notes-col{font-size:13px;line-height:1.85;color:#2b3646}
   .note-item{font-family:"Kaiti SC","STKaiti",cursive;border-left:2px solid #f2c9c4;padding-left:11px;margin-bottom:14px}
   .note-item .q{color:var(--red)}
+  .note-item x-good{color:var(--red);text-decoration:underline wavy var(--red);text-underline-offset:4px}
+  .note-item x-bad{color:var(--blue);text-decoration:underline wavy var(--blue);text-underline-offset:4px}
+  .note-item x-polish{color:var(--green);text-decoration:underline wavy var(--green);text-underline-offset:4px}
 
   .modal-panel{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.2);width:640px;max-width:90vw;max-height:82vh;display:flex;flex-direction:column;overflow:hidden}
   .modal-body{flex:1;overflow:auto;padding:16px 20px;background:#fff}
@@ -173,10 +176,10 @@
           </div>
         </div>
         <div class="notes-col">
-                    <div class="note-item">第 1 段：开头点题，一句话说清是什么、怎么来的，好。【保留】</div>
-          <div class="note-item">第 2 段：全文最亮的一段，三个比喻写活样子，三个声音加动作写贪吃，像放电影。【保留】</div>
-          <div class="note-item">第 3 段：写了一件真事，用小猫的陪伴写爱，跳上床、蹭脸、搭手背、舔手背，「别难过啦」其实是你的心里话，动人。【保留】</div>
-          <div class="note-item">第 4 段：结尾「我可太爱它啦」有点喊口号，前面已经用细节把爱写够了。【修改：「我可太爱它啦」→ 换成具体画面，如「现在，它正窝在我脚边打着呼噜，我想和它拉个钩，以后每一个春夏秋冬，都要一起热热闹闹地过。」】</div>
+          <div class="note-item">第 1 段：开头点题，一句话说清是什么、怎么来的，好。<x-good>它就像一团软乎乎的小绒球</x-good>，这个比喻很贴。</div>
+          <div class="note-item">第 2 段：全文最亮的一段，<x-good>聪明毛</x-good>、<x-good>绿宝石</x-good>、<x-good>小旗子尾巴</x-good>三个比喻写活样子，<x-good>喵呜喵呜</x-good>、<x-good>嗒嗒嗒</x-good>、<x-good>咔嚓咔嚓</x-good>写贪吃像放电影。</div>
+          <div class="note-item">第 3 段：写了一件真事，用小猫的陪伴写爱，跳上床、蹭脸、搭手背、舔手背，<x-good>别难过啦，下次肯定能考好</x-good>其实是你的心里话，动人。</div>
+          <div class="note-item">第 4 段：<x-polish>我可太爱它啦</x-polish>这句在喊口号，前面三段其实已经把爱写饱满了。【修改：删掉这句 → 换成具体画面，如「现在，它正窝在我脚边打着呼噜，小肚子一起一伏」】</div>
         </div>
       </div>
     </section>
@@ -185,7 +188,7 @@
       <nav class="side-tabs" id="tabs">
         <div class="side-tab active" data-k="review">总评</div>
         <div class="side-tab" data-k="polish">全文润色</div>
-                <div class="side-tab" data-k="walk">教辅复核</div>
+        <div class="side-tab" data-k="walk">教辅复核</div>
       </nav>
       <div class="side-body" id="body"></div>
     </aside>
@@ -207,6 +210,8 @@
     review:`
       <div class="card">
         <p>这篇《我的心爱之物》写得很好——<span class="q">「圆溜溜的绿眼睛像两颗透亮的『绿宝石』」「毛茸茸的小尾巴像面『小旗子』」</span>，这三个比喻让我一下就看见了电电；写它吃鸡肉时，连着用<span class="q">「喵呜喵呜」「嗒嗒嗒」「咔嚓咔嚓」</span>，我仿佛听见了声音、看见了它迈着小短腿跑过来的样子。</p>
+      </div>
+      <div class="card">
         <p>最要改的只有一处：结尾<span class="q">「我可太爱它啦」</span>在喊口号，前面三段其实已经用样子、贪吃、月考时的陪伴把爱写饱满了，可以把它换成一个小画面——现在，它正窝在我脚边打着呼噜，小肚子一起一伏，我想和它拉个钩，以后每一个春夏秋冬，都要一起热热闹闹地过，这样感情就在最后一个动作里自己流出来了。</p>
       </div>`,
     polish:`
