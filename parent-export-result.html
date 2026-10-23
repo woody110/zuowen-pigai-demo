@@ -14,18 +14,7 @@
 </head>
 <body>
 <div class="wrap">
-  <img id="reportImg" src="report-text.png" alt="家长版批改报告（文字版）">
+  <img src="parent-report.png" alt="家长版批改报告">
 </div>
-<script>
-  var mode = new URLSearchParams(location.search).get('mode');
-  var img = document.getElementById('reportImg');
-  if (mode === 'image') {
-    img.src = 'report-image.png';
-    img.alt = '家长版批改报告（学生原图版）';
-  } else {
-    img.src = 'report-text.png';
-    img.alt = '家长版批改报告（文字版）';
-  }
-</script>
 </body>
 </html>
